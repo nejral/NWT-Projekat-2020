@@ -2,10 +2,7 @@ package ba.com.zira.template.dao;
 
 import org.springframework.stereotype.Repository;
 
-import ba.com.zira.commons.dao.AbstractDAO;
-import ba.com.zira.template.dao.model.document.DocumentEntity;
-
+import com.hotel.ena.models.ZaposlenikEntity;
 @Repository
-public class ZaposlenikRepository extends AbstractDAO<DocumentEntity, String> {
-
+public interface ZaposlenikRepository extends JpaRepository<ZaposlenikEntity, Long> {
 }
