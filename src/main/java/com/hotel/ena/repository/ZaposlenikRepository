@@ -1,0 +1,11 @@
+package ba.com.zira.template.dao;
+
+import org.springframework.stereotype.Repository;
+
+import ba.com.zira.commons.dao.AbstractDAO;
+import ba.com.zira.template.dao.model.document.DocumentEntity;
+
+@Repository
+public class ZaposlenikRepository extends AbstractDAO<DocumentEntity, String> {
+
+}
