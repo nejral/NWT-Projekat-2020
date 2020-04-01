@@ -1,11 +1,16 @@
 package com.example.hotel.ena.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class Korisnik implements Serializable {
+    @NotNull
     private String username;
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @NotNull
     private String password;
     public Korisnik(String username, String password, String name, String surname) {
         this.username = username;

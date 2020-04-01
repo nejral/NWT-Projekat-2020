@@ -16,6 +16,25 @@ public class KorisnikEntity {
      @Column
     private String name;
 
+    @Column
+    private String password;
+
+    @Column
+    private String surname;
+    @Column
+    private String username;
+
+    public Boolean getZaposlenikInd() {
+        return zaposlenikInd;
+    }
+
+    public void setZaposlenikInd(Boolean zaposlenikInd) {
+        this.zaposlenikInd = zaposlenikInd;
+    }
+
+    @Column
+    private Boolean zaposlenikInd;
+
     public String getName() {
         return name;
     }
@@ -48,8 +67,7 @@ public class KorisnikEntity {
         this.username = username;
     }
 
-    @Column
-    private String password;
+
 
     public Long getId() {
         return id;
@@ -59,10 +77,7 @@ public class KorisnikEntity {
         this.id = id;
     }
 
-    @Column
-    private String surname;
-     @Column
-    private String username;
+
 
     public KorisnikEntity() {
     }
