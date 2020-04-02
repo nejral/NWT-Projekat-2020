@@ -1,11 +1,12 @@
 package com.example.hotel.ena.exception;
 
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
 import java.util.List;
-
+@Data
 public class ApiError {
 
         private HttpStatus status;
