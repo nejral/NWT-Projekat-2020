@@ -152,7 +152,7 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>4.3.0</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -176,7 +176,16 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+            <testResources>
+                <testResource>
+                    <directory>src/main/test</directory>
+                </testResource>
+            </testResources>
+
+
     </build>
+
 
     <repositories>
         <repository>

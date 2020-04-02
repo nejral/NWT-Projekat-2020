@@ -69,13 +69,12 @@ private RequestValidation requestValidation;
         @DeleteMapping("/{id}")
         String deleteRacun(@PathVariable Long id) {
 
-            racunRepozitorij.deleteById(id);
-
             if(requestValidation.validateDelete(id)==null) {
-
+                racunRepozitorij.deleteById(id);
                 return "Racun is deleted successfully";
             }
             else {
+
                 return requestValidation.validateDelete(id);
             }
 

@@ -18,7 +18,7 @@ public class RequestValidation {
     }
 
     public String validateDelete(Long id){
-        if(racunRepository.existsById(id)){
+        if(!racunRepository.existsById(id)){
             return "Racun not deleted successfully";
         }
         return null;
