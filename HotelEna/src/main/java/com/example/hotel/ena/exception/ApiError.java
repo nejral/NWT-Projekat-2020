@@ -1,7 +1,12 @@
 package com.example.hotel.ena.exception;
 
 
-    public class ApiError {
+import org.springframework.http.HttpStatus;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class ApiError {
 
         private HttpStatus status;
         private String message;
