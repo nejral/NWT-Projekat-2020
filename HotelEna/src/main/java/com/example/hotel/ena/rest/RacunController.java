@@ -17,7 +17,7 @@ private RequestValidation requestValidation;
         private static final String template = "Iznos: %f";
         private final AtomicLong counter = new AtomicLong();
 
-        private final RacunRepository racunRepozitorij;
+        private  RacunRepository racunRepozitorij;
 
         // Aggregate root
 
@@ -67,8 +67,18 @@ private RequestValidation requestValidation;
         }
 
         @DeleteMapping("/{id}")
-        void deleteRacun(@PathVariable Long id) {
+        String deleteRacun(@PathVariable Long id) {
+
             racunRepozitorij.deleteById(id);
+
+            if(requestValidation.validateDelete(id)==null) {
+
+                return "Racun is deleted successfully";
+            }
+            else {
+                return requestValidation.validateDelete(id);
+            }
+
         }
 
 

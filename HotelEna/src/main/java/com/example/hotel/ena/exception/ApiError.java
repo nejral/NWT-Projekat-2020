@@ -25,5 +25,33 @@ public class ApiError {
             this.message = message;
             errors = Arrays.asList(error);
         }
+
+    public HttpStatus getStatus() {
+            return status;
     }
+
+    public List<String> getErrors() {
+            return errors;
+    }
+
+    public void setStatus(final HttpStatus status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(final String message) {
+        this.message = message;
+    }
+
+    public void setErrors(final List<String> errors) {
+        this.errors = errors;
+    }
+
+    public void setError(final String error) {
+        errors = Arrays.asList(error);
+    }
+}
 
