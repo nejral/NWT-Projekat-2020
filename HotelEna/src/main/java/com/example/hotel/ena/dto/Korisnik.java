@@ -1,8 +1,11 @@
 package com.example.hotel.ena.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
+@Data
 public class Korisnik implements Serializable {
     @NotNull
     private String username;
@@ -19,7 +22,9 @@ public class Korisnik implements Serializable {
         this.surname = surname;
     }
 
+public Korisnik(){
 
+}
 
     public String getUsername() {
         return username;

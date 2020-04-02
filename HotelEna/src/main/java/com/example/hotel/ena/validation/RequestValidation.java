@@ -23,7 +23,7 @@ public class RequestValidation {
         }   else if(korisnik.getPassword().isEmpty() || korisnik.getPassword()==null){
             return "Password required";
         }
-        else if((korisnikRepository.existsByUsername(korisnik.getUsername())){
+        else if((korisnikRepository.existsByUsername(korisnik.getUsername()))){
             KorisnikEntity korisnikEntity=korisnikRepository.findByUsername(korisnik.getUsername());
             if(korisnik.getPassword().equals(korisnikEntity.getPassword())){
                 return null;
@@ -32,6 +32,13 @@ public class RequestValidation {
                 return "Incorrect password";
             }
         }
+
         return null;
+    }
+    public String validateId(Long id){
+        if(korisnikRepository.existsById(id))
+            return null;
+        else
+            return "Korisnik with id does not exist!";
     }
 }

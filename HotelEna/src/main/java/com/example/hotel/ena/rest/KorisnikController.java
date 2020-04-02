@@ -6,26 +6,53 @@ import com.example.hotel.ena.repository.KorisnikRepository;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/korisnik")
 public class KorisnikController {
     private KorisnikRepository korisnikRepository;
     private RequestValidation requestValidation;
-@PostMapping()
-    public String create(@RequestBody Korisnik korisnik){
-    if(requestValidation.validateUsername(korisnik.getUsername())==null){
-        KorisnikEntity korisnikEntity=new KorisnikEntity();
-        BeanUtils.copyProperties(korisnik,korisnikEntity);
-        korisnikRepository.save(korisnikEntity);
-        return "Successfully created!";
+
+    @PostMapping()
+    public String create(@RequestBody Korisnik korisnik) {
+        if (requestValidation.validateUsername(korisnik.getUsername()) == null) {
+            KorisnikEntity korisnikEntity = new KorisnikEntity();
+            BeanUtils.copyProperties(korisnik, korisnikEntity);
+            korisnikRepository.save(korisnikEntity);
+            return "Successfully created!";
+        }
+
+        return requestValidation.validateUsername(korisnik.getUsername());
+
     }
 
-    return requestValidation.validateUsername(korisnik.getUsername());
+    @GetMapping("/all")
+    List<KorisnikEntity> all() {
+        return korisnikRepository.findAll();
+    }
 
-}
+    @PutMapping("/{id}")
+    String update(@PathVariable Long id, @RequestBody Korisnik korisnik) {
+        Optional<KorisnikEntity> korisnikEntity = korisnikRepository.findById(id);
+        if (korisnikEntity == null) {
+            return "Korisnik with id does not exist!";
+        } else {
+            BeanUtils.copyProperties(korisnik, korisnikEntity);
+            return "Updated successfully!";
+        }
+    }
+    @DeleteMapping("/{id}")
+    String deleteKorisnik(@PathVariable Long id) {
+        if(requestValidation.validateId(id)!=null)
+            return requestValidation.validateId(id);
+        korisnikRepository.deleteById(id);
+        return "Korisnik is deleted successfully";
+    }
+
+
 }
