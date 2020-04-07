@@ -70,7 +70,7 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             racun.setCreated("2020-03-02");
             racun.setCreatedBy("nejra");
             racun.setPaid(true);
-            racun.setUserId("5");
+            racun.setUserId((long) 5);
             racun.setReservationId("4");
             String inputJson = super.mapToJson(racun);
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -90,7 +90,7 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
         racun.setCreated("2020-03-02");
         racun.setCreatedBy("nejra");
         racun.setPaid(true);
-        racun.setUserId("5");
+        racun.setUserId((long) 5);
         racun.setReservationId("4");
         String inputJson = super.mapToJson(racun);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)

@@ -15,7 +15,7 @@ public class RacunEntity {
 
     @NotNull
     @Column
-    private String user_id;
+    private Long userId;
     @NotNull
     private String createdBy;
     @NotNull
@@ -40,12 +40,12 @@ public class RacunEntity {
     }
 
 
-    public String getUserId() {
-        return this.user_id;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public void setUserId(final String userId){
-        this.user_id = userId;
+    public void setUserId(final Long userId){
+        this.userId = userId;
     }
     public String getReservationId() {
         return this.reservation_id;

@@ -39,12 +39,14 @@ private RequestValidation requestValidation;
 
         // Single item
 
-     /*   @GetMapping("/{id}")
-        RacunEntity one(@PathVariable Long id) {
-
-            return racunRepozitorij.findById(id);
-                    //.orElseThrow(() -> new RacunNotFoundException(id));
-        }*/
+        @GetMapping("/{userId}")
+        Racun findByUserId(@PathVariable long userId) {
+Racun racun=new Racun();
+RacunEntity racunEntity=racunRepozitorij.findByUserId(userId);
+racun.setId(racunEntity.getId());
+racun.setIznos(racunEntity.getCost());
+            return racun;
+        }
 
         @PutMapping("/{id}")
         RacunEntity zamijeniRacun(@RequestBody RacunEntity newRacun, @PathVariable Long id) {

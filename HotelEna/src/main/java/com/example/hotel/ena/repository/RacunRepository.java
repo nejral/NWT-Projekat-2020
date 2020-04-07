@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RacunRepository extends JpaRepository<RacunEntity, Long> {
      //Boolean existsByUsername(String username);
+    RacunEntity findByUserId(Long userId);
 }
