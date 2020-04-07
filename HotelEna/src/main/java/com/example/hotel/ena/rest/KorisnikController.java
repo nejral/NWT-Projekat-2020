@@ -1,8 +1,10 @@
 package com.example.hotel.ena.rest;
 
+import com.example.hotel.ena.dto.Racun;
 import com.example.hotel.ena.models.KorisnikEntity;
 import com.example.hotel.ena.dto.Korisnik;
 import com.example.hotel.ena.repository.KorisnikRepository;
+import com.example.hotel.ena.service.KorisnikService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class KorisnikController {
     private KorisnikRepository korisnikRepository;
     private RequestValidation requestValidation;
+    private KorisnikService korisnikService;
 
     @PostMapping()
     public String create(@RequestBody Korisnik korisnik) {
@@ -53,6 +56,9 @@ public class KorisnikController {
         korisnikRepository.deleteById(id);
         return "Korisnik is deleted successfully";
     }
-
+    @GetMapping("/{userId}/racun")
+    Racun findRacunByUserId(@PathVariable Long userId) {
+        return korisnikService.findByUserId(userId);
+    }
 
 }
