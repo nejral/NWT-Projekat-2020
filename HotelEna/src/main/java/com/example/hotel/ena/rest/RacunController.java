@@ -1,9 +1,13 @@
 package com.example.hotel.ena.rest;
 import com.example.hotel.ena.dto.Racun;
+import com.example.hotel.ena.dto.RacunPaidResponse;
+import com.example.hotel.ena.dto.RacunReservationRequest;
 import com.example.hotel.ena.models.RacunEntity;
 import com.example.hotel.ena.repository.RacunRepository;
+import com.example.hotel.ena.service.RacunService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 private RequestValidation requestValidation;
         private static final String template = "Iznos: %f";
         private final AtomicLong counter = new AtomicLong();
-
+private RacunService racunService;
         private  RacunRepository racunRepozitorij;
 
         // Aggregate root
@@ -36,7 +40,15 @@ private RequestValidation requestValidation;
                 return requestValidation.validateIznos(noviRacun.getCost());
             }
         }
+    @PostMapping("/reservation")
+    String newRacunReservation(@RequestBody RacunReservationRequest noviRacun) {
+            RacunEntity racunEntity=new RacunEntity();
+        BeanUtils.copyProperties(noviRacun,racunEntity);
+            racunRepozitorij.save(racunEntity);
+            return "Racun created successfully";
 
+
+    }
         // Single item
 
         @GetMapping("/{userId}")
@@ -82,7 +94,13 @@ racun.setIznos(racunEntity.getCost());
 
         }
 
-
+    @GetMapping("/reservation/{reservationId}")
+        Racun reservationRacun(@PathVariable Long reservationId) {
+            RacunEntity racunEntity=racunRepozitorij.findByReservationId(reservationId);
+            Racun racun=new Racun();
+            BeanUtils.copyProperties(racunEntity,racun);
+            return racun;
+    }
         @PostMapping("/racun/iznos")
 
         public Racun racun(@RequestParam(value = "iznos", defaultValue = "0") double iznos) {
@@ -94,7 +112,10 @@ racun.setIznos(racunEntity.getCost());
         public List<RacunEntity> findRacun() {
             return racunRepozitorij.findAll();
         }
-
+@GetMapping("/not-paid")
+    public List<RacunPaidResponse> getAllNotPaid(){
+            return racunService.getAllNotPaid();
+}
     }
 
 

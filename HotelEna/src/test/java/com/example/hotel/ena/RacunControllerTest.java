@@ -32,6 +32,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -67,11 +68,11 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             String uri = "/racun";
             RacunEntity racun = new  RacunEntity();
             racun.setCost(120);
-            racun.setCreated("2020-03-02");
-            racun.setCreatedBy("nejra");
+            //racun.setCreated();
+            racun.setCreatedBy(Long.valueOf(1));
             racun.setPaid(true);
             racun.setUserId((long) 5);
-            racun.setReservationId("4");
+            racun.setReservationId(Long.valueOf(4));
             String inputJson = super.mapToJson(racun);
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -87,11 +88,11 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
         String uri = "/racun";
         RacunEntity racun = new  RacunEntity();
         racun.setCost(-120);
-        racun.setCreated("2020-03-02");
-        racun.setCreatedBy("nejra");
+        //racun.setCreated(LocalDateTime.now());
+        racun.setCreatedBy(Long.valueOf(1));
         racun.setPaid(true);
         racun.setUserId((long) 5);
-        racun.setReservationId("4");
+        racun.setReservationId(Long.valueOf(4));
         String inputJson = super.mapToJson(racun);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

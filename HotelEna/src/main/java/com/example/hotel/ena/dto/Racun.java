@@ -11,12 +11,12 @@ public class Racun {
     private Long id;
 
     //private String Iznos;
-    private double iznos;
-
+    private double cost;
+private Boolean paid;
     public Racun() {}
 
-    public Racun(double iznos, Long id) {
-        this.iznos = iznos;
+    public Racun(double cost, Long id) {
+        this.cost = cost;
         this.id = id;
     }
 
@@ -25,11 +25,11 @@ public class Racun {
     }
 
     public double getIznos() {
-        return iznos;
+        return cost;
     }
 
     public void setIznos(double iznos) {
-        this.iznos = iznos;
+        this.cost = iznos;
     }
 
 
