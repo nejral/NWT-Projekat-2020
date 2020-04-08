@@ -1,44 +1,44 @@
 package com.example.hotel.ena.validation;
 
-import com.example.hotel.ena.dto.Korisnik;
-import com.example.hotel.ena.models.KorisnikEntity;
-import com.example.hotel.ena.repository.KorisnikRepository;
+import com.example.hotel.ena.dto.Rezervacija;
+import com.example.hotel.ena.models.RezervacijaEntity;
+import com.example.hotel.ena.repository.RezervacijaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RequestValidation {
     @Autowired
-    KorisnikRepository korisnikRepository;
-    public String validateUsername(String username){
-        if(username.isEmpty() || username==null){
-            return "Username required";
+    RezervacijaRepository rezervacijaRepository;
+    public String validateUser_id(Long user_id){
+        if(user_id == null || user_id.toString().isEmpty()){
+            return "User_id required";
         }
         return null;
     }
 
-    public String validateKorisnik(Korisnik korisnik){
-        if(korisnik.getUsername().isEmpty() || korisnik.getUsername()==null){
-            return "Username required";
-        }   else if(korisnik.getPassword().isEmpty() || korisnik.getPassword()==null){
-            return "Password required";
+    public String validateRezervacija(Rezervacija rezervacija){
+        if(rezervacija.getUser_id()==null || rezervacija.getUser_id().toString().isEmpty()){
+            return "User_id required";
+        }   else if(rezervacija.getCreatedBy().toString().isEmpty() || rezervacija.getCreatedBy() == null){
+            return "CreatedBy required";
         }
-        else if((korisnikRepository.existsByUsername(korisnik.getUsername()))){
-            KorisnikEntity korisnikEntity=korisnikRepository.findByUsername(korisnik.getUsername());
-            if(korisnik.getPassword().equals(korisnikEntity.getPassword())){
+        else if((rezervacijaRepository.existsByUserId(rezervacija.getUser_id()))){
+            RezervacijaEntity rezervacijaEntity=rezervacijaRepository.findByUserId(rezervacija.getUser_id());
+            if(rezervacija.getCreatedBy().equals(rezervacijaEntity.getCreatedBy())){
                 return null;
             }
             else{
-                return "Incorrect password";
+                return "Incorrect CreatedBy";
             }
         }
 
         return null;
     }
     public String validateId(Long id){
-        if(korisnikRepository.existsById(id))
+        if(rezervacijaRepository.existsById(id))
             return null;
         else
-            return "Korisnik with id does not exist!";
+            return "Rezervacija with id does not exist!";
     }
 }

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KorisnikService {
-     @Autowired
-     RacunClient racunClient;
+   /*  //@Autowired
+    // RacunClient racunClient;
 
-     public Racun findByUserId(final long userId){
+     //public Racun findByUserId(final long userId){
          return racunClient.findByUserId(userId);
-     }
+     }*/
 }
