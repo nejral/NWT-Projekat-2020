@@ -17,6 +17,7 @@ import java.util.List;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableEurekaServer
 public class HotelEnaApplication {
 
     public static void main(String[] args) {
