@@ -51,6 +51,19 @@ class RezervacijaController {
         return rezervacije;
     }
 
+    @GetMapping("/allByCreatedBy/{id}")
+    List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
+        List<RezervacijaEntity> lista = null;
+        lista = rezervacijaRepository.findAll();
+        for (RezervacijaEntity rez : lista){
+            if (rez.getCreatedBy() != id)
+                lista.remove(rez);
+        }
+        List<Rezervacija> rezervacije = null;
+        BeanUtils.copyProperties(rezervacije, lista);
+        return rezervacije;
+    }
+
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
