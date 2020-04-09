@@ -10,8 +10,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @AllArgsConstructor
 @RestController
@@ -41,29 +44,33 @@ class RezervacijaController {
 
     @GetMapping("/allByUserId/{id}")
     List<Rezervacija> allByUserId(@PathVariable Long id) {
-        List<RezervacijaEntity> lista = null;
-        List<RezervacijaEntity> pomLista = null;
+        List<RezervacijaEntity> lista;
+        List<RezervacijaEntity> pomLista = new ArrayList<RezervacijaEntity>();
         lista = rezervacijaRepository.findAll();
         for (RezervacijaEntity rez : lista){
-            if (rez.getUserId() != id)
+            if (rez.getUserId().equals(id))
                 pomLista.add(rez);
         }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
+        List<Rezervacija> rezervacije = new ArrayList();
+        BeanUtils.copyProperties( rezervacije, pomLista);
+
+        //System.out.println(rezervacije);
         return rezervacije;
     }
 
     @GetMapping("/allByCreatedBy/{id}")
     List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
-        List<RezervacijaEntity> lista = null;
-        List<RezervacijaEntity> pomLista = null;
+        List<RezervacijaEntity> lista;
+        List<RezervacijaEntity> pomLista = new ArrayList<RezervacijaEntity>();
         lista = rezervacijaRepository.findAll();
         for (RezervacijaEntity rez : lista){
-            if (rez.getCreatedBy() != id)
+            if (!rez.getCreatedBy().equals(id))
                 pomLista.add(rez);
         }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
+        List<Rezervacija> rezervacije = new ArrayList();
+        BeanUtils.copyProperties( rezervacije, pomLista);
+
+        //System.out.println(rezervacije);
         return rezervacije;
     }
 
