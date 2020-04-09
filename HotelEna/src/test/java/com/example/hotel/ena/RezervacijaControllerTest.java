@@ -41,7 +41,7 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacija() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
-       rezervacija.setUser_id(123L);
+       rezervacija.setUserId(123L);
        rezervacija.setCreatedBy(345L);
        rezervacija.setCreated(new Date(System.currentTimeMillis()));
        rezervacija.setValidFrom((Date.valueOf("1-5-2020")));
@@ -60,7 +60,7 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacijaError() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
-        rezervacija.setUser_id(123L);
+        rezervacija.setUserId(123L);
         rezervacija.setCreatedBy(456L);
         rezervacija.setCreated(new Date(System.currentTimeMillis()));
         rezervacija.setValidFrom(Date.valueOf("11-5-2020"));

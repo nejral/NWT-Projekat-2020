@@ -23,14 +23,14 @@ class RezervacijaController {
 
     @PostMapping()
     public String create(@RequestBody Rezervacija rezervacija) {
-        if (requestValidation.validateUser_id(rezervacija.getUser_id()) == null) {
+        if (requestValidation.validateUserId(rezervacija.getUserId()) == null) {
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
             rezervacijaRepository.save(rezervacijaEntity);
             return "Successfully created!";
         }
 
-        return requestValidation.validateUser_id(rezervacija.getUser_id());
+        return requestValidation.validateUserId(rezervacija.getUserId());
 
     }
 
@@ -42,10 +42,11 @@ class RezervacijaController {
     @GetMapping("/allByUserId/{id}")
     List<Rezervacija> allByUserId(@PathVariable Long id) {
         List<RezervacijaEntity> lista = null;
+        List<RezervacijaEntity> pomLista = null;
         lista = rezervacijaRepository.findAll();
         for (RezervacijaEntity rez : lista){
             if (rez.getUserId() != id)
-                lista.remove(rez);
+                pomLista.add(rez);
         }
         List<Rezervacija> rezervacije = null;
         BeanUtils.copyProperties(rezervacije, lista);
@@ -55,10 +56,11 @@ class RezervacijaController {
     @GetMapping("/allByCreatedBy/{id}")
     List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
         List<RezervacijaEntity> lista = null;
+        List<RezervacijaEntity> pomLista = null;
         lista = rezervacijaRepository.findAll();
         for (RezervacijaEntity rez : lista){
             if (rez.getCreatedBy() != id)
-                lista.remove(rez);
+                pomLista.add(rez);
         }
         List<Rezervacija> rezervacije = null;
         BeanUtils.copyProperties(rezervacije, lista);
@@ -81,6 +83,7 @@ class RezervacijaController {
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
+
         if (rezervacijaEntity == null) {
             return "Rezervacija with id does not exist!";
         } else {

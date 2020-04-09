@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Rezervacija implements Serializable {
 
     @NotNull
-    private Long user_id;
+    private Long userId;
     @NotNull
     private Long createdBy;
     @NotNull
@@ -22,7 +22,7 @@ public class Rezervacija implements Serializable {
     private Date validTo;
 
     public Rezervacija(Long user_id, Long createdBy, Date created, Date validFrom, Date validTo) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.createdBy = createdBy;
         this.created = created;
         this.validFrom = validFrom;
@@ -31,12 +31,12 @@ public class Rezervacija implements Serializable {
 
     public Rezervacija(){ }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long user_id) {
+        this.userId = user_id;
     }
 
     public Long getCreatedBy() {
