@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,19 @@ class RezervacijaController {
         return rezervacije;
     }
 
+    @GetMapping("/checkExpired")
+    List<Rezervacija> checkExpired() {
+        List<RezervacijaEntity> lista = rezervacijaRepository.findAll();
+        for (RezervacijaEntity rez : lista){
+            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) > 0)
+                lista.remove(rez);
+        }
+        List<Rezervacija> rezervacije = null;
+        BeanUtils.copyProperties(rezervacije, lista);
+        return rezervacije;
+    }
+
+
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
@@ -75,6 +89,7 @@ class RezervacijaController {
         }
 
     }
+
 
 
     @DeleteMapping("/{id}")
