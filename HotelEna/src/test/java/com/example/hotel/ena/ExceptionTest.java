@@ -19,7 +19,7 @@ import com.example.hotel.ena.web.TestConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfig.class }, loader = AnnotationConfigContextLoader.class)
 public class ExceptionTest  {
-    private static final String URL_PREFIX = "http://localhost:8080/spring-security-rest";
+    private static final String URL_PREFIX = "http://localhost:8080/korisnik";
     // private FormAuthConfig formConfig = new FormAuthConfig(URL_PREFIX + "/login", "temporary", "temporary");
 
     private String cookie;
@@ -37,7 +37,7 @@ public class ExceptionTest  {
 
     @Test
     public void whenTry_thenOK() {
-        final Response response = givenAuth().get(URL_PREFIX + "/api/foos");
+        final Response response = givenAuth().get(URL_PREFIX + "/");
         assertEquals(200, response.statusCode());
         System.out.println(response.asString());
 
