@@ -7,6 +7,7 @@ import com.example.hotel.ena.repository.RacunRepository;
 import com.example.hotel.ena.service.RacunService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/racun")
-    public class RacunController {
+
+public class RacunController {
 private RequestValidation requestValidation;
         private static final String template = "Iznos: %f";
         private final AtomicLong counter = new AtomicLong();
