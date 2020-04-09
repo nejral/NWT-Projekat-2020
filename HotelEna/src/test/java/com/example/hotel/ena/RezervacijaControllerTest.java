@@ -63,8 +63,8 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
         rezervacija.setUserId(123L);
         rezervacija.setCreatedBy(456L);
         rezervacija.setCreated(new Date(System.currentTimeMillis()));
-        rezervacija.setValidFrom(Date.valueOf("11-5-2020"));
-        rezervacija.setValidTo(Date.valueOf("15-5-2020"));
+        rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
+        rezervacija.setValidTo(new Date(System.currentTimeMillis()));
 
         String inputJson = super.mapToJson(rezervacija);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)

@@ -21,8 +21,8 @@ public class Rezervacija implements Serializable {
     @NotNull
     private Date validTo;
 
-    public Rezervacija(Long user_id, Long createdBy, Date created, Date validFrom, Date validTo) {
-        this.userId = user_id;
+    public Rezervacija(Long userId, Long createdBy, Date created, Date validFrom, Date validTo) {
+        this.userId = userId;
         this.createdBy = createdBy;
         this.created = created;
         this.validFrom = validFrom;
@@ -35,8 +35,8 @@ public class Rezervacija implements Serializable {
         return userId;
     }
 
-    public void setUserId(Long user_id) {
-        this.userId = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getCreatedBy() {
