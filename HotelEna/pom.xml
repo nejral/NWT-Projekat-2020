@@ -160,18 +160,20 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.2.RELEASE</version>
         </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>${spring-cloud.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>
@@ -182,11 +184,11 @@
             </plugin>
         </plugins>
 
-            <testResources>
-                <testResource>
-                    <directory>src/main/test</directory>
-                </testResource>
-            </testResources>
+        <testResources>
+            <testResource>
+                <directory>src/main/test</directory>
+            </testResource>
+        </testResources>
 
 
     </build>

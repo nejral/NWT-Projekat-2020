@@ -6,7 +6,7 @@ import lombok.Data;
 public class RacunPaidResponse {
 
     private Long id;
-    private double iznos;
+    private double cost;
 
     private long userId;
 }

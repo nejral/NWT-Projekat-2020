@@ -4,12 +4,15 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.example.hotel.ena.dto.Korisnik;
+import com.example.hotel.ena.dto.Racun;
 import com.example.hotel.ena.exception.ApiError;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,8 +35,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 import java.io.File;
+//import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Date;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -51,9 +56,9 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
 
 
 
-        @Test
+        /*@Test
         public void getRacunsList() throws Exception {
-            String uri = "/racun";
+            String uri = "/racun/all";
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                     .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
@@ -62,17 +67,24 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             String content = mvcResult.getResponse().getContentAsString();
             RacunEntity[]  racunlist = super.mapFromJson(content, RacunEntity[].class);
             assertTrue(racunlist.length > 0);
-        }
+        }*/
         @Test
         public void createRacun() throws Exception {
             String uri = "/racun";
             RacunEntity racun = new  RacunEntity();
             racun.setCost(120);
-            //racun.setCreated();
-            racun.setCreatedBy(Long.valueOf(1));
+
+            //novo ya date
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String dateInString = "07/06/2020";
+            Date date = formatter.parse(dateInString);
+            racun.setCreated(date);
+
+            //racun.setCreated(Date.valueOf("2020-04-03"));
+            racun.setCreatedBy(1L);
             racun.setPaid(true);
             racun.setUserId((long) 5);
-            racun.setReservationId(Long.valueOf(4));
+            racun.setReservationId(4L);
             String inputJson = super.mapToJson(racun);
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -83,16 +95,23 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             String content = mvcResult.getResponse().getContentAsString();
             assertEquals(content, "Racun created successfully");
         }
+
         @Test
          public void createRacunError() throws Exception {
         String uri = "/racun";
         RacunEntity racun = new  RacunEntity();
         racun.setCost(-120);
-        //racun.setCreated(LocalDateTime.now());
-        racun.setCreatedBy(Long.valueOf(1));
+        //novo za date java.util umjesto java.sql
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String dateInString = "07/06/2020";
+            Date date = formatter.parse(dateInString);
+            racun.setCreated(date);
+
+       // racun.setCreated(Date.valueOf("2020-04-03"));
+        racun.setCreatedBy(1L);
         racun.setPaid(true);
         racun.setUserId((long) 5);
-        racun.setReservationId(Long.valueOf(4));
+        racun.setReservationId(4L);
         String inputJson = super.mapToJson(racun);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -101,36 +120,49 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        assertEquals(content, "Iznos is not valid!");
+//        assertEquals(content, "Iznos is not valid!");
+        assertEquals(content, "Iznos required!");
     }
 
+    /*@Test
+    public void updateRacun() throws Exception {
+        String uri = "/racun/2";
+        Racun racun =new Racun();
+        RacunEntity racunEntity=racunRepozitorij.findById(2L).get();
+        BeanUtils.copyProperties(racunEntity, racun);
+        racun.setCost(400.3);
 
-
-          /* private RequestSpecification givenAuth() {
-        // return RestAssured.given().auth().form("user", "userPass", formConfig);
-        // if (cookie == null) {
-        // cookie = RestAssured.given().contentType("application/x-www-form-urlencoded").formParam("password", "userPass").formParam("username", "user").post(URL_PREFIX + "/login").getCookie("JSESSIONID");
-        // }
-        // return RestAssured.given().cookie("JSESSIONID", cookie);
-        return RestAssured.given()
-                .auth().preemptive()
-                .basic("user", "userPass");
-    }
-
+        String inputJson = super.mapToJson(racun);
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(inputJson)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Updated successfully!");
+    }*/
+/*
     @Test
-    public void whenHttpRequestMethodNotSupported_thenMethodNotAllowed() {
-        Response response = givenAuth().delete(URL_PREFIX + "/api/foos/1");
-        ApiError error = response.as(ApiError.class);
+    public void deleteRacun() throws Exception {
+        String uri = "/racun/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
 
-        assertEquals(HttpStatus.METHOD_NOT_ALLOWED, error.getStatus());
-        assertEquals(1, error.getErrors().size());
-        assertTrue(error.getErrors().get(0).contains("Supported methods are"));
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Racun is deleted successsfully");
+    }*/
+
+   /* @Test
+    public void findRacunByUserIdEmployee() throws Exception{
+        String uri = "/korisnik/1/zaposlenik/racun";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
     }*/
 
 
-
-
-
+/*
 //AMINA
         // private FormAuthConfig formConfig = new FormAuthConfig(URL_PREFIX + "/login", "temporary", "temporary");
 
@@ -196,43 +228,12 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             System.out.println(response.asString());
 
         }
-
+*/
         @org.springframework.context.annotation.Configuration
         public static class ContextConfiguration {
         }
 
 
 
-    /*
-
-
-
-        @Test
-        public void updateRacun() throws Exception {
-            String uri = "/racun";
-            RacunEntity racun = new  RacunEntity();
-
-            racun.setCost(250);
-            String inputJson = super.mapToJson(racun);
-            MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
-                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .content(inputJson)).andReturn();
-
-            int status = mvcResult.getResponse().getStatus();
-            assertEquals(200, status);
-            String content = mvcResult.getResponse().getContentAsString();
-            assertEquals(content, "Racun is updated successsfully");
-        }
-*/
-        @Test
-        public void deleteRacun() throws Exception {
-            String uri = "/racun/1";
-            MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
-
-            int status = mvcResult.getResponse().getStatus();
-            assertEquals(200, status);
-            String content = mvcResult.getResponse().getContentAsString();
-            assertEquals(content, "Racun is deleted successsfully");
-        }
     //}
 }

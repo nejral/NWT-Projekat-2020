@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface RacunRepository extends JpaRepository<RacunEntity, Long> {
      //Boolean existsByUsername(String username);
-    RacunEntity findByUserId(Long userId);
+    //String validateId(Long id);
+   // RacunEntity findByUserId(Long userId);
+    List<RacunEntity> findByUserId(Long userId);
     List<RacunEntity> findByCreatedBy(Long createdBy);
     RacunEntity findByReservationId(Long reservationId);
 }

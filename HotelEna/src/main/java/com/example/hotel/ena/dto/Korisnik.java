@@ -22,11 +22,9 @@ public class Korisnik implements Serializable {
         this.surname = surname;
     }
 
-public Korisnik(){
+//public Korisnik(){}
 
-}
-
-    public String getUsername() {
+   /* public String getUsername() {
         return username;
     }
 
@@ -57,6 +55,7 @@ public Korisnik(){
     public void setSurname(String surname) {
         this.surname = surname;
     }
+    */
 
 
 }

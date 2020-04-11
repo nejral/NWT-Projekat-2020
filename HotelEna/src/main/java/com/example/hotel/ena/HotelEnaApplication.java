@@ -2,6 +2,7 @@ package com.example.hotel.ena;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+//@EnableAutoConfiguration
 public class HotelEnaApplication {
 
     public static void main(String[] args) {

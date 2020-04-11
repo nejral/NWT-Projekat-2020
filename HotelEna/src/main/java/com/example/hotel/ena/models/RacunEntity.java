@@ -5,8 +5,9 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+//import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -25,6 +26,8 @@ public class RacunEntity {
     @NotNull
     private Date created;
 
+
+
     @NotNull
     @Column
     private double cost;
@@ -32,7 +35,7 @@ public class RacunEntity {
 
     private Long reservationId;
 
-    @AssertTrue
+    //@AssertTrue
     @Column
 
     private Boolean paid;
@@ -40,6 +43,10 @@ public class RacunEntity {
     public RacunEntity() {
     }
 
-
-
+    public double getCost() {
+        return cost;
+    }
+    public Long getId() {
+        return id;
+    }
 }
