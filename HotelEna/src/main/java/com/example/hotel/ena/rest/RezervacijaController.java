@@ -44,45 +44,44 @@ class RezervacijaController {
 
     @GetMapping("/allByUserId/{id}")
     List<Rezervacija> allByUserId(@PathVariable Long id) {
-        List<RezervacijaEntity> lista;
-        List<RezervacijaEntity> pomLista = new ArrayList<RezervacijaEntity>();
-        lista = rezervacijaRepository.findAll();
-        for (RezervacijaEntity rez : lista){
-            if (rez.getUserId().equals(id))
-                pomLista.add(rez);
-        }
-        List<Rezervacija> rezervacije = new ArrayList();
-        BeanUtils.copyProperties( rezervacije, pomLista);
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
 
-        //System.out.println(rezervacije);
-        return rezervacije;
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getUserId() == id) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
+        }
+        return pomRezervacije;
     }
 
     @GetMapping("/allByCreatedBy/{id}")
     List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
-        List<RezervacijaEntity> lista;
-        List<RezervacijaEntity> pomLista = new ArrayList<RezervacijaEntity>();
-        lista = rezervacijaRepository.findAll();
-        for (RezervacijaEntity rez : lista){
-            if (!rez.getCreatedBy().equals(id))
-                pomLista.add(rez);
-        }
-        List<Rezervacija> rezervacije = new ArrayList();
-        BeanUtils.copyProperties( rezervacije, pomLista);
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
 
-        //System.out.println(rezervacije);
-        return rezervacije;
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getCreatedBy() == id) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
+        }
+        return pomRezervacije;
     }
 
     @GetMapping("/checkExpired")
     List<Rezervacija> checkExpired() {
         List<RezervacijaEntity> lista = rezervacijaRepository.findAll();
+        List<RezervacijaEntity> pomLista = new ArrayList<>();
         for (RezervacijaEntity rez : lista){
             if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) > 0)
-                lista.remove(rez);
+                pomLista.add(rez);
         }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
+        List<Rezervacija> rezervacije = new ArrayList<>();
+        BeanUtils.copyProperties(rezervacije, pomLista);
         return rezervacije;
     }
 
