@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,15 +74,17 @@ class RezervacijaController {
 
     @GetMapping("/checkExpired")
     List<Rezervacija> checkExpired() {
-        List<RezervacijaEntity> lista = rezervacijaRepository.findAll();
-        List<RezervacijaEntity> pomLista = new ArrayList<>();
-        for (RezervacijaEntity rez : lista){
-            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) > 0)
-                pomLista.add(rez);
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
+
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) <= 0) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
         }
-        List<Rezervacija> rezervacije = new ArrayList<>();
-        BeanUtils.copyProperties(rezervacije, pomLista);
-        return rezervacije;
+        return pomRezervacije;
     }
 
 

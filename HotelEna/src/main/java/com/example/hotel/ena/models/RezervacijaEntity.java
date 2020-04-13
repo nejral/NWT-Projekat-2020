@@ -2,7 +2,7 @@ package com.example.hotel.ena.models;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "rezervacijaentity")
