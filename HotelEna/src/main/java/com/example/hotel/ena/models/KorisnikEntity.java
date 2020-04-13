@@ -1,36 +1,42 @@
 package com.example.hotel.ena.models;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
 @Table(name = "korisnikentity")
 public class KorisnikEntity {
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-     @Column
-    private String name;
+    @Column
 
+    private String name;
     @Column
     private String password;
 
     @Column
     private String surname;
     @Column
+
     private String username;
-
-    public Boolean getZaposlenikInd() {
-        return zaposlenikInd;
-    }
-
-    public void setZaposlenikInd(Boolean zaposlenikInd) {
-        this.zaposlenikInd = zaposlenikInd;
-    }
-
     @Column
-    private Boolean zaposlenikInd;
+    private Boolean employeeInd;
+
+    public KorisnikEntity(Object o, String name, String surname, String username, Boolean b) {
+        this.setName(name);
+        this.setPassword(password);
+        this.setUsername(username);
+        this.setEmployeeInd(b);
+
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -64,19 +70,15 @@ public class KorisnikEntity {
         this.username = username;
     }
 
-
-
-    public Long getId() {
-        return id;
+    public Boolean getEmployeeInd() {
+        return employeeInd;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeInd(Boolean employeeInd) {
+        this.employeeInd = employeeInd;
     }
+public KorisnikEntity(){
 
-
-
-    public KorisnikEntity() {
-    }
+}
 
 }

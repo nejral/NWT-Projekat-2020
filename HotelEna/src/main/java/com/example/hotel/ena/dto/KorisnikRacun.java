@@ -1,15 +1,15 @@
 package com.example.hotel.ena.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.*;
+import java.io.*;
 
 @Data
-public class Korisnik implements Serializable {
-
+public class KorisnikRacun implements Serializable {
     private Long id;
+
+    private double iznos;
     @NotNull
     private String username;
     @NotNull
@@ -19,8 +19,4 @@ public class Korisnik implements Serializable {
     @NotNull
     private String password;
     private Boolean employeeInd;
-
-
-
-
 }
