@@ -1,6 +1,7 @@
 package com.example.hotel.ena.service;
 
 import com.example.hotel.ena.dto.*;
+import com.example.hotel.ena.exception.BaseException;
 import com.example.hotel.ena.mapper.RacunMapper;
 import com.example.hotel.ena.models.RacunEntity;
 import com.example.hotel.ena.repository.RacunRepository;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+//@Transactional
 //@AllArgsConstructor
 public class RacunService {
 
@@ -25,15 +28,31 @@ public class RacunService {
 //    RezervacijaClient rezervacijaClient;
     @Autowired
     RacunRepository racunRepository;
+    @Autowired
     RequestValidation requestValidation;
+    @Autowired
     RacunMapper racunMapper;
 
     public String create(final RacunRequest racunRequest) throws ConstraintViolationException {
-        requestValidation.validateCreateRequest(racunRequest);
-        RacunEntity racunEntity = racunMapper.dtoToEntity(racunRequest);
-        racunEntity.setPaid(false);
-        racunRepository.save(racunEntity);
-        return "Bill successfully created";
+
+        try {
+            requestValidation.validateCreateRequest(racunRequest);
+            RacunEntity racunEntity = racunMapper.dtoToEntity(racunRequest);
+            racunEntity.setPaid(false);
+           // System.out.println(racunEntity);
+            racunRepository.save(racunEntity);
+
+        }
+        catch(NullPointerException e) {
+            // probably don't bother doing clean up
+        }catch(BaseException f){
+            return f.getMessage();
+        }
+
+
+        return "Bill created successfully";
+
+
     }
 
     public List<RacunPaidResponse> getAllNotPaid(){
@@ -50,14 +69,21 @@ public class RacunService {
     }
 
     public List<Racun> findAll(){
-        List<Racun> racuni=racunMapper.entitiesToDtos(racunRepository.findAll());
-        return racuni;
-    }
+      List<Racun> racuni = new ArrayList<>();
+     //  try {
+          //  assert(racunRepository.count()!=0);
+            racuni = racunMapper.entitiesToDtos(racunRepository.findAll());
+        //} catch(NullPointerException e) {
+            // probably don't bother doing clean up
+       // }
+       return racuni;
+      }
 
     public Racun findById(Long id){
         requestValidation.validateId(id);
         return racunMapper.entityToDto(racunRepository.findById(id).get());
     }
+
     public List<Racun> findByCreatedBy(Long createdBy){
         requestValidation.validateCreatedBy(createdBy);
         List<Racun> racun=new ArrayList<>();
@@ -66,16 +92,39 @@ public class RacunService {
 
 //moyda treba request
     public String updateRacun( Racun racunRequest){
-        requestValidation.validateId(racunRequest.getId());
-        racunMapper.updateEntity(racunRequest,racunRepository.findById(racunRequest.getId()).get());
-        return "Updated successfully";
+        try {
+            requestValidation.validateId(racunRequest.getId());
+            racunMapper.updateEntity(racunRequest,racunRepository.findById(racunRequest.getId()).get());
+
+        }
+        catch(NullPointerException e) {
+            // probably don't bother doing clean up
+        }catch(Exception f){
+            return f.getMessage();
+        }
+
+        return "Updated successfully!";
     }
 
     public Racun findByUserId(@PathVariable long userId) {
         Racun racun=new Racun();
         return racunMapper.entityToDto(racunRepository.findByUserId(userId));
     }
+    public Racun reservationCreateRacun(@PathVariable Long reservationId) {
 
+        // racunRepository.findByReservationId(reservationId);
+        RacunRequest racunRequest = new RacunRequest();
+        racunRequest.setReservationId(reservationId);
+        RacunEntity racunEntity = racunMapper.dtoToEntity(racunRequest);
+        racunEntity.setPaid(false);
+        racunRepository.save(racunEntity);
+        RacunEntity re=racunRepository.findByReservationId(reservationId);
+        Racun racun=new Racun();
+        BeanUtils.copyProperties(re,racun);
+        return racun;
+
+
+    }
     public String deleteById(Long id) {
         requestValidation.validateId(id);
         racunRepository.deleteById(id);
@@ -83,10 +132,10 @@ public class RacunService {
     }
 
     public String pay(List<Long> ids) {
-        for (int i = 0; i < ids.size(); i++) {
-            requestValidation.validateId(ids.get(i));
-            racunRepository.getOne(ids.get(i)).setPaid(true);
-          }
+        for (Long id : ids) {
+            requestValidation.validateId(id);
+            racunRepository.getOne(id).setPaid(true);
+        }
         return "Bills payed successfully";
     }
 }

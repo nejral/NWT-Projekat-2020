@@ -10,15 +10,20 @@ import java.util.Date;
 public class Racun {
 
 
-    @NotNull
+
     private Long id;
     @NotNull
-    private double cost;
     private Boolean paid;
-    private Long reservationId;
-    private Long createdBy;
-    private Date created;
+    @NotNull
     private Long userId;
+    @NotNull
+    private Long reservationId;
+    @NotNull
+    private Long createdBy;
+    @NotNull
+    private Date created;
+    @NotNull
+    private double cost;
 
     public Racun() {}
 

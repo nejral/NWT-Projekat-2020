@@ -26,6 +26,9 @@ public class RequestValidation {
         if(racunRepository.existsById(racunRequest.getId())) {
             throw new BaseException("Bill with this id already exists in database.Please choose another one.", HttpStatus.BAD_REQUEST);
         }
+       if(racunRequest.getCost()<0) {
+            throw new BaseException("Cost is not valid!", HttpStatus.BAD_REQUEST);
+        }
 
     }
 

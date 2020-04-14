@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @Data
+@Table(name = "racun_entity")
 public class RacunEntity {
 
 
@@ -21,11 +22,33 @@ public class RacunEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     @NotNull
     @Column
     private Long userId;
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
+
     @NotNull
     private Long createdBy;
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
     @NotNull
     private Date created;
 
@@ -42,6 +65,14 @@ public class RacunEntity {
     private Boolean paid;
 
     public RacunEntity() {
+    }
+
+    public RacunEntity(Object o, Long reservationId, double cost, Long userId, Boolean b) {
+        this.setReservationId(reservationId);
+        this.setCost(cost);
+        this.setUserId(userId);
+        this.setPaid(b);
+
     }
 
     public void setPaid(Boolean paid) {

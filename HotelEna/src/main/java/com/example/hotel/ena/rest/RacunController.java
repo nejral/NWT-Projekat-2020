@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @AllArgsConstructor
 @RestController
+
 @RequestMapping("/racun")
 
 public class RacunController {
-
+@Autowired
         private RequestValidation requestValidation;
-        private static final String template = "Cost: %f";
-        private final AtomicLong counter = new AtomicLong();
+       // private static final String template = "Cost: %f";
+       // private final AtomicLong counter = new AtomicLong();
         private RacunService racunService;
         private  RacunRepository racunRepository;
 
@@ -36,9 +38,21 @@ public class RacunController {
 
     @ApiOperation(value = "Create Bill", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping()
-    public String create(@Valid @RequestBody RacunRequest racun) {
-        return racunService.create(racun);
+    public String create(@Valid @RequestBody RacunRequest racunRequest) {
+        return racunService.create(racunRequest);
     }
+   /* @PostMapping()
+    String newRacun(@RequestBody RacunEntity noviRacun) {
+        if(requestValidation.validateIznos(noviRacun.getCost())==null) {
+            racunRepository.save(noviRacun);
+            return "Racun created successfully";
+        }
+        else {
+            return requestValidation.validateIznos(noviRacun.getCost());
+        }
+    }*/
+
+
 
     @ApiOperation(value = "Get All Bills", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/all")
@@ -53,13 +67,13 @@ public class RacunController {
     }
 
     @ApiOperation(value = "Update Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PutMapping()
+    @PutMapping("/update/{id}")
     String update(@Valid  @RequestBody Racun racun) {
         return racunService.updateRacun( racun);
     }
 
     @ApiOperation(value = "Delete Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     String deleteRacun(@PathVariable Long id) {
         return racunService.deleteById(id);
     }
@@ -98,6 +112,12 @@ public class RacunController {
         return racun;
     }
 
+    @PostMapping("/reservation/{reservationId}")
+    Racun reservationCreateRacun(@PathVariable Long reservationId) {
+
+        return racunService.reservationCreateRacun(reservationId);
+    }
+
 
     @GetMapping("/racun")
     public List<RacunEntity> findRacun() {
@@ -109,13 +129,6 @@ public class RacunController {
     }
 
 
-
-
-  /*@GetMapping()
-  List<RacunEntity> all() {
-            return racunRepository.findAll();
-        }
-*/
    /*@PostMapping()
    String newRacun(@RequestBody RacunEntity noviRacun) {
             if(requestValidation.validateIznos(noviRacun.getCost())==null) {
@@ -142,42 +155,7 @@ public class RacunController {
 
 
 
-   /* @PutMapping("/{id}")
-    RacunEntity zamijeniRacun(@RequestBody RacunEntity newRacun, @PathVariable Long id) {
 
-            return racunRepository.findById(id)
-                    .map(racunEntity -> {
-                        racunEntity.setCost(newRacun.getCost());
-                        //racunEntity.setId(newRacun.getId());
-                        racunEntity.setPaid(newRacun.getPaid());
-                        racunEntity.setReservationId(newRacun.getReservationId());
-                        racunEntity.setCreated(newRacun.getCreated());
-                        racunEntity.setCreatedBy(newRacun.getCreatedBy());
-                        racunEntity.setUserId(newRacun.getUserId());
-                        return racunRepository.save(racunEntity);
-                    })
-                    .orElseGet(() -> {
-                        //newRacun.setId(id);
-                        return racunRepository.save(newRacun);
-                    });
-        }
-    @DeleteMapping("/{id}")
-    String deleteRacun(@PathVariable Long id) {
-        *//*if(requestValidation.validateId(id)!=null)
-            return requestValidation.validateId(id);
-        racunRepository.deleteById(id);
-        return "Korisnik is deleted successfully";*//*
-
-            if(requestValidation.validateDelete(id)==null) {
-                racunRepository.deleteById(id);
-                return "Racun is deleted successfully";
-            }
-            else {
-
-                return requestValidation.validateDelete(id);
-            }
-
-        }*/
 
 
 

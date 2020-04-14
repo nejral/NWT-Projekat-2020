@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy  = ReportingPolicy.IGNORE,componentModel = "spring")
 public interface RacunMapper {
     @Mappings({
-            @Mapping(target="id", source="id"),
+          //  @Mapping(target="reservationId", source="reservationId"),
             @Mapping(target="cost", source="cost")
     })
     RacunEntity dtoToEntity(RacunRequest racun);
