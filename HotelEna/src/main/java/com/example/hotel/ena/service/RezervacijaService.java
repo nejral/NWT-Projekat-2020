@@ -17,6 +17,13 @@ public class RezervacijaService {
 
     RacunClient racunClient;
     RequestValidation requestValidation;
+
+    public Racun reservationRacun(final Long reservationId) {
+        return racunClient.reservationRacun(reservationId);
+    }
+    public Racun reservationCreateRacun(final Long reservationId) {
+        return racunClient.reservationCreateRacun(reservationId);
+    }
 /*
     public Racun findByReservationId(final Long reservationId) {
         return racunClient.reservationRacun(reservationId);

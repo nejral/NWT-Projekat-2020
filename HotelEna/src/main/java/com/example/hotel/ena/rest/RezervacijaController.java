@@ -103,6 +103,16 @@ class RezervacijaController {
     Racun findRacunByReservationId(@PathVariable Long reservationId) {
         return rezervacijaService.findByReservationId(reservationId);
     }*/
+    @GetMapping("/{reservationId}")
+    Racun reservationRacun(@PathVariable Long reservationId) {
+        return rezervacijaService.reservationRacun(reservationId);
+    }
+
+    @PostMapping("/reservation/{reservationId}")
+    Racun reservationCreateRacun(@PathVariable Long reservationId) {
+        return rezervacijaService.reservationCreateRacun(reservationId);
+    }
+
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);

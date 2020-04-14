@@ -24,9 +24,6 @@ public class SalaEntity {
     private int numberOfPeople;
 
     @Column
-    private int reservationId;
-
-    @Column
     private Long userId;
 
     public SalaEntity(){}
@@ -53,14 +50,6 @@ public class SalaEntity {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
-    }
-
-    public int getReservationId() {
-        return reservationId;
-    }
-
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
     }
 
     public Long getUserId() {

@@ -3,7 +3,7 @@ package com.example.hotel.ena.models;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-import java.sql.Clob;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "sobaentity")
@@ -19,7 +19,7 @@ public class SobaEntity {
     private RezervacijaEntity rezervacijaentity;
 
     @Column
-    private Clob slike;
+    private Blob slike;
 
     @Column
     private int numberOfBeds;
@@ -35,11 +35,11 @@ public class SobaEntity {
         this.id = id;
     }
 
-    public Clob getSlike() {
+    public Blob getSlike() {
         return slike;
     }
 
-    public void setSlike(Clob slike) {
+    public void setSlike(Blob slike) {
         this.slike = slike;
     }
 

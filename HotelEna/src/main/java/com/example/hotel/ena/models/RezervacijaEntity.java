@@ -1,10 +1,12 @@
 package com.example.hotel.ena.models;
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@AllArgsConstructor
 @Table(name = "rezervacijaentity")
 public class RezervacijaEntity {
     @javax.persistence.Id
