@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient("racun")
 public interface RacunClient {
-
+/*
+    @GetMapping("/racun/reservationRacun/{reservationId}")
+    Racun reservationRacun(@PathVariable Long reservationId);*/
+/*
     @GetMapping("racun/{userId}")
     Racun findByUserId(@PathVariable Long userId);
 
@@ -17,6 +20,7 @@ public interface RacunClient {
 
     @GetMapping("/reservation/{reservationId}")
     Racun reservationRacun(@PathVariable Long reservationId);
-
-
+*/
+    /*@GetMapping("racun/{reservationId}/racun")
+    Racun findByReservationId(@PathVariable Long reservationId);*/
 }

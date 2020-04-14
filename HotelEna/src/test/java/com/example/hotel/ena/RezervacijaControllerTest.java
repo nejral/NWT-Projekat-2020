@@ -78,7 +78,7 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     }
     @Test
         public void deleteRezervacija() throws Exception {
-            String uri = "/rezervacija/10";
+            String uri = "/rezervacija/21";
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);

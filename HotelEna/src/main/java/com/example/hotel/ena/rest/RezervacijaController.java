@@ -1,5 +1,6 @@
 package com.example.hotel.ena.rest;
 
+import com.example.hotel.ena.dto.Racun;
 import com.example.hotel.ena.models.RezervacijaEntity;
 import com.example.hotel.ena.dto.Rezervacija;
 import com.example.hotel.ena.repository.RezervacijaRepository;
@@ -35,6 +36,18 @@ class RezervacijaController {
 
         return requestValidation.validateUserId(rezervacija.getUserId());
 
+    }
+
+    @PostMapping("/createByUserId/{id}")
+    public String createByUserId(@RequestBody Rezervacija rezervacija, @PathVariable Long id) {
+        if (requestValidation.validateUserId(id) == null) {
+            RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
+            BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
+            rezervacijaEntity.setUserId(id);
+            rezervacijaRepository.save(rezervacijaEntity);
+            return "Successfully created!";
+        }
+        return requestValidation.validateUserId(rezervacija.getUserId());
     }
 
     @GetMapping("/all")
@@ -85,9 +98,11 @@ class RezervacijaController {
             }
         }
         return pomRezervacije;
-    }
-
-
+    }/*
+    @GetMapping("racun/reservation/{reservationId}")
+    Racun findRacunByReservationId(@PathVariable Long reservationId) {
+        return rezervacijaService.findByReservationId(reservationId);
+    }*/
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
