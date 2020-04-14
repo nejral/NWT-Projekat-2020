@@ -13,7 +13,6 @@ public class Racun {
     @NotNull
     private Long id;
     @NotNull
-    //private String Iznos;
     private double cost;
     private Boolean paid;
     private Long reservationId;

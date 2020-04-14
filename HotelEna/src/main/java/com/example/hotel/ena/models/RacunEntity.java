@@ -1,5 +1,6 @@
 package com.example.hotel.ena.models;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
@@ -10,9 +11,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@AllArgsConstructor
 @Data
 public class RacunEntity {
-    //@javax.persistence.Id
+
+
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,14 +29,12 @@ public class RacunEntity {
     @NotNull
     private Date created;
 
-
-
     @NotNull
     @Column
     private double cost;
     @NotNull
-
     private Long reservationId;
+
 
     //@AssertTrue
     @Column
@@ -43,10 +44,26 @@ public class RacunEntity {
     public RacunEntity() {
     }
 
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
+
     public double getCost() {
         return cost;
     }
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
     }
 }

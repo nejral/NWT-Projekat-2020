@@ -12,11 +12,11 @@ import java.util.List;
 @FeignClient("rezervacija")
 public interface RezervacijaClient {
 
-    @GetMapping("/rezervacija/allByUserId/{id}")
+   /* @GetMapping("/rezervacija/allByUserId/{id}")
     List<Rezervacija> allByUserId(@PathVariable Long id);
 
     @GetMapping("/rezervacija/allByCreatedBy/{id}")
-    List<Rezervacija> allByCreatedBy(@PathVariable Long id);
+    List<Rezervacija> allByCreatedBy(@PathVariable Long id);*/
 
 
 }

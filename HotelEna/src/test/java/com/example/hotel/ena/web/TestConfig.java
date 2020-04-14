@@ -1,4 +1,4 @@
-package com.example.hotel.ena;
+package com.example.hotel.ena.web;
 
 
 import org.springframework.context.annotation.Bean;
