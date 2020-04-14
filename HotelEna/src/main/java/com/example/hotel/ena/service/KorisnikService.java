@@ -9,6 +9,7 @@ import com.example.hotel.ena.rest.RacunClient;
 import com.example.hotel.ena.rest.RezervacijaClient;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,9 @@ public Korisnik findById(Long id){
 }
 public String updateKorisnik( Korisnik korisnikRequest){
         requestValidation.validateId(korisnikRequest.getId());
-        korisnikMapper.updateEntity(korisnikRequest,korisnikRepository.findById(korisnikRequest.getId()).get());
+        KorisnikEntity korisnikEntity=korisnikRepository.findById(korisnikRequest.getId()).get();
+        BeanUtils.copyProperties(korisnikRequest,korisnikEntity);
+        korisnikRepository.save(korisnikEntity);
         return "Updated successfully";
 }
 public String deleteById(Long id){

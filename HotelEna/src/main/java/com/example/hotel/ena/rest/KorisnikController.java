@@ -92,7 +92,7 @@ public class KorisnikController {
     }
 
     @ApiOperation(value = "Login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/login")
+    @PostMapping("/login")
     String login(@RequestBody KorisnikLoginRequest korisnikLoginRequest) {
         requestValidation.validateLogin(korisnikLoginRequest);
         return "Successfully logged in!";
