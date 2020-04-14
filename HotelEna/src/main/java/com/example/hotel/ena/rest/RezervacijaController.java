@@ -23,14 +23,14 @@ class RezervacijaController {
 
     @PostMapping()
     public String create(@RequestBody Rezervacija rezervacija) {
-        if (requestValidation.validateUser_id(rezervacija.getUser_id()) == null) {
+        if (requestValidation.validateUser_id(rezervacija.getUserId()) == null) {
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
             rezervacijaRepository.save(rezervacijaEntity);
             return "Successfully created!";
         }
 
-        return requestValidation.validateUser_id(rezervacija.getUser_id());
+        return requestValidation.validateUser_id(rezervacija.getUserId());
 
     }
 
@@ -40,30 +40,23 @@ class RezervacijaController {
     }
 
     @GetMapping("/allByUserId/{id}")
-    List<Rezervacija> allByUserId(@PathVariable Long id) {
-        List<RezervacijaEntity> lista = null;
-        lista = rezervacijaRepository.findAll();
-        for (RezervacijaEntity rez : lista){
-            if (rez.getUserId() != id)
-                lista.remove(rez);
-        }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
+    Rezervacija allByUserId(@PathVariable Long id) {
+        RezervacijaEntity lista =rezervacijaRepository.findByUserId(id);
+        Rezervacija rezervacije = new Rezervacija();
+        BeanUtils.copyProperties(lista, rezervacije);
         return rezervacije;
     }
 
     @GetMapping("/allByCreatedBy/{id}")
-    List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
-        List<RezervacijaEntity> lista = null;
-        lista = rezervacijaRepository.findAll();
-        for (RezervacijaEntity rez : lista){
-            if (rez.getCreatedBy() != id)
-                lista.remove(rez);
-        }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
+    Rezervacija allByCreatedBy(@PathVariable Long id) {
+        RezervacijaEntity lista =rezervacijaRepository.findByCreatedBy(id);
+        Rezervacija rezervacije = new Rezervacija();
+        BeanUtils.copyProperties(lista, rezervacije);
         return rezervacije;
-    }
+            }
+
+
+
 
     @GetMapping("/checkExpired")
     List<Rezervacija> checkExpired() {

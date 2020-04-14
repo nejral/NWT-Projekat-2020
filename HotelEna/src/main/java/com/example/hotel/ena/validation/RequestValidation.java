@@ -18,13 +18,13 @@ public class RequestValidation {
     }
 
     public String validateRezervacija(Rezervacija rezervacija){
-        if(rezervacija.getUser_id()==null || rezervacija.getUser_id().toString().isEmpty()){
+        if(rezervacija.getUserId()==null || rezervacija.getUserId().toString().isEmpty()){
             return "User_id required";
         }   else if(rezervacija.getCreatedBy().toString().isEmpty() || rezervacija.getCreatedBy() == null){
             return "CreatedBy required";
         }
-        else if((rezervacijaRepository.existsByUserId(rezervacija.getUser_id()))){
-            RezervacijaEntity rezervacijaEntity=rezervacijaRepository.findByUserId(rezervacija.getUser_id());
+        else if((rezervacijaRepository.existsByUserId(rezervacija.getUserId()))){
+            RezervacijaEntity rezervacijaEntity=rezervacijaRepository.findByUserId(rezervacija.getUserId());
             if(rezervacija.getCreatedBy().equals(rezervacijaEntity.getCreatedBy())){
                 return null;
             }
