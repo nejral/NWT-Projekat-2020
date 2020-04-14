@@ -59,7 +59,7 @@ public String deleteById(Long id){
         return racunClient.findByUserId(userId);
     }
 
-    public List<Racun> findByUserIdEmployee(final long userId) {
+    public List<Racun> findByUserIdEmployee(final Long userId) {
         return racunClient.getAllCreatedBy(userId);
     }
 
@@ -67,11 +67,11 @@ public String deleteById(Long id){
         return racunClient.payBills(ids);
     }
 
-    public List<Rezervacija> allByUserId(Long id) {
+    public Rezervacija allByUserId(Long id) {
         return rezervacijaClient.allByUserId(id);
     }
 
-    public List<Rezervacija> allByCreatedBy(Long id) {
+    public Rezervacija allByCreatedBy(Long id) {
         return rezervacijaClient.allByCreatedBy(id);
     }
 }

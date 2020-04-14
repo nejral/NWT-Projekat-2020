@@ -11,10 +11,8 @@ import java.util.List;
 public interface RezervacijaClient {
 
     @GetMapping("/rezervacija/allByUserId/{id}")
-    List<Rezervacija> allByUserId(@PathVariable Long id);
+    Rezervacija allByUserId(@PathVariable Long id);
 
     @GetMapping("/rezervacija/allByCreatedBy/{id}")
-    List<Rezervacija> allByCreatedBy(@PathVariable Long id);
-
-
+    Rezervacija allByCreatedBy(@PathVariable Long id);
 }

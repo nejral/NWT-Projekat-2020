@@ -9,7 +9,7 @@ import java.util.List;
 @FeignClient("racun")
 public interface RacunClient {
 
-    @GetMapping("racun/{userId}")
+    @GetMapping("racun/{userId}/bill")
     Racun findByUserId(@PathVariable Long userId);
 
     @GetMapping("racun/{userId}/zaposlenik")

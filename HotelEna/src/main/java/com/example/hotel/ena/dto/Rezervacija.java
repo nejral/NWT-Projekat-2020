@@ -9,8 +9,9 @@ import java.sql.Date;
 @Data
 public class Rezervacija implements Serializable {
 
+
     @NotNull
-    private Long user_id;
+    private Long userId;
     @NotNull
     private Long createdBy;
     @NotNull

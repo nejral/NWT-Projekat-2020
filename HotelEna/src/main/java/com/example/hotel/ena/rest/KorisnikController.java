@@ -80,13 +80,13 @@ public class KorisnikController {
 
     @ApiOperation(value = "Get All Reservations by User with Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/reservation/{id}")
-    List<Rezervacija> getGuestsReservations(@PathVariable Long id) {
+    Rezervacija getGuestsReservations(@PathVariable Long id) {
         return korisnikService.allByUserId(id);
     }
 
     @ApiOperation(value = "Get All Reservations created By Employee with Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/reservation/employee/{id}")
-    List<Rezervacija> getEmployeeReservations(@PathVariable Long id) {
+    Rezervacija getEmployeeReservations(@PathVariable Long id) {
         requestValidation.validateEmployee(id);
         return korisnikService.allByCreatedBy(id);
     }
