@@ -3,9 +3,7 @@ option java_multiple_files = true;
 
 import "google/protobuf/timestamp.proto";
 
-//  timestamp akcije, naziv mikroservisa u kojem se akcija desila, user koji je pokrenuo akciju - možete dodati poslije,
-//  tip akcije - create, delete, get, update, naziv resursa nad kojim se dešava akcija,
-//  tip odgovora na akciju - uspješno završena akcija, greška.
+
 message EventRequest {
   google.protobuf.Timestamp actionTimestamp = 1;
   string serviceName = 2;
