@@ -13,6 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.*;
 
 @Component
 public class EventInterceptor extends HandlerInterceptorAdapter {
@@ -83,8 +84,8 @@ public class EventInterceptor extends HandlerInterceptorAdapter {
 
         EventResponse res = eventsService.hello(
                 EventRequest.newBuilder()
-                        .setServiceName("user")
-                        .setActionTimestamp(Timestamp.newBuilder().setSeconds(System.nanoTime() / 1_000_000).build())
+                        .setServiceName("login")
+                        .setActionTimestamp(Timestamp.newBuilder().setSeconds(Instant.now().getEpochSecond()).build())
                         .setUserId(0) 
                         .setActionType(actionType)
                         .setResourceName(resourceName)
