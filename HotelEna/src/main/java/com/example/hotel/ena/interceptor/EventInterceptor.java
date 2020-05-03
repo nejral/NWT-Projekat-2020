@@ -1,17 +1,18 @@
 package com.example.hotel.ena.interceptor;
 
+import com.google.protobuf.Timestamp;
+import com.system.systemevents.*;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import EventsServiceGrpc;
-import com.example.hotel.ena.systemevents.*;
-import com.google.protobuf.*;
-import io.grpc.*;
-import org.apache.logging.log4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.servlet.handler.*;
-
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class EventInterceptor extends HandlerInterceptorAdapter {
@@ -29,7 +30,8 @@ public class EventInterceptor extends HandlerInterceptorAdapter {
 
         eventsService = EventsServiceGrpc.newBlockingStub(channel);
     }
-
+    
+    // before sending request to controller
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
@@ -81,13 +83,15 @@ public class EventInterceptor extends HandlerInterceptorAdapter {
 
         EventResponse res = eventsService.hello(
                 EventRequest.newBuilder()
-                        .setServiceName("list")
+                        .setServiceName("user")
                         .setActionTimestamp(Timestamp.newBuilder().setSeconds(System.nanoTime() / 1_000_000).build())
-                        .setUserId(0) // todo
+                        .setUserId(0) 
                         .setActionType(actionType)
                         .setResourceName(resourceName)
                         .setResponseType(responseType)
                         .build()
         );
+        
+        System.out.println(actionType.toString() + " " + resourceName.toString() + " " + responseType.toString());
     }
 }

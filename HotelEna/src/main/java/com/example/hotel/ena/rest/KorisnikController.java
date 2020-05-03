@@ -25,6 +25,7 @@ public class KorisnikController {
 
 
     private RequestValidation requestValidation;
+
     private KorisnikService korisnikService;
 
     @ApiOperation(value = "Create User", consumes = MediaType.APPLICATION_JSON_VALUE)

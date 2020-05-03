@@ -1,6 +1,7 @@
-package com.example.hotel.ena.systemevents;
+package com.example.hotel.ena.db;
 
 
+import com.example.hotel.ena.db.entity.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 
