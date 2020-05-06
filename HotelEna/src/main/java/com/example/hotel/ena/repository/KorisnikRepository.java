@@ -4,9 +4,13 @@ import com.example.hotel.ena.models.KorisnikEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.*;
+
 @Repository
 public interface KorisnikRepository extends JpaRepository<KorisnikEntity, Long> {
      Boolean existsByUsername(String username);
 
     KorisnikEntity findByUsername(String username);
+
+
 }

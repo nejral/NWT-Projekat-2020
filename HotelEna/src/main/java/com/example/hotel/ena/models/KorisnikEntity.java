@@ -3,6 +3,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -12,8 +13,17 @@ public class KorisnikEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Column
+    private Boolean enabled = true;
     private String name;
     @Column
     private String password;
@@ -26,6 +36,16 @@ public class KorisnikEntity {
     @Column
     private Boolean employeeInd;
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Role> roles;
     public KorisnikEntity(Object o, String name, String surname, String username, Boolean b) {
         this.setName(name);
         this.setPassword(password);

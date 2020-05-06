@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
@@ -36,6 +37,7 @@ public class KorisnikController {
 
     @ApiOperation(value = "Get All Users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('PRIVILEGE_ADMIN_READ')")
     List<Korisnik> all() {
         return korisnikService.findAll();
     }
