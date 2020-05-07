@@ -26,7 +26,7 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
     ) throws IOException {
         this.eventRequestRepository = eventRequestRepository;
 
-        Server server = ServerBuilder.forPort(8089)
+        Server server = ServerBuilder.forPort(8088)
                 .addService(this)
                 .build();
 
