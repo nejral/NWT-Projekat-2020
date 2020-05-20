@@ -56,7 +56,7 @@ public class RacunController {
 
     @ApiOperation(value = "Get All Bills", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/all")
-    List<Racun> all() {
+    List<RacunEntity> all() {
         return racunService.findAll();
     }
 
@@ -85,8 +85,8 @@ public class RacunController {
     }
 
     @ApiOperation(value = "Get All Bills by createdBy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/{userId}/zaposlenik")
-    List<Racun> getAllCreatedBy(@PathVariable Long createdBy) {
+    @GetMapping("/{createdBy}/zaposlenik")
+    List<RacunEntity> getAllCreatedBy(@PathVariable Long createdBy) {
         requestValidation.validateCreatedBy(createdBy);
         return racunService.findByCreatedBy(createdBy);
     }

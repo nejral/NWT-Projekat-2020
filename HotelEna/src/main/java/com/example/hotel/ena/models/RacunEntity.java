@@ -49,7 +49,7 @@ public class RacunEntity {
         this.cost = cost;
     }
 
-    @NotNull
+
     private Date created;
 
     @NotNull

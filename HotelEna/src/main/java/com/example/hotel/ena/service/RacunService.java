@@ -2,7 +2,6 @@ package com.example.hotel.ena.service;
 
 import com.example.hotel.ena.dto.*;
 import com.example.hotel.ena.exception.BaseException;
-import com.example.hotel.ena.mapper.RacunMapper;
 import com.example.hotel.ena.models.RacunEntity;
 import com.example.hotel.ena.repository.RacunRepository;
 import com.example.hotel.ena.rest.RezervacijaClient;
@@ -30,14 +29,15 @@ public class RacunService {
     RacunRepository racunRepository;
     @Autowired
     RequestValidation requestValidation;
-    @Autowired
-    RacunMapper racunMapper;
+
 
     public String create(final RacunRequest racunRequest) throws ConstraintViolationException {
 
         try {
             requestValidation.validateCreateRequest(racunRequest);
-            RacunEntity racunEntity = racunMapper.dtoToEntity(racunRequest);
+            RacunEntity racunEntity= new RacunEntity();
+            BeanUtils.copyProperties(racunRequest,racunEntity);
+
             racunEntity.setPaid(false);
            // System.out.println(racunEntity);
             racunRepository.save(racunEntity);
@@ -68,11 +68,11 @@ public class RacunService {
         return lista;
     }
 
-    public List<Racun> findAll(){
-      List<Racun> racuni = new ArrayList<>();
+    public List<RacunEntity> findAll(){
+
      //  try {
           //  assert(racunRepository.count()!=0);
-            racuni = racunMapper.entitiesToDtos(racunRepository.findAll());
+        List<RacunEntity>  racuni = racunRepository.findAll();
         //} catch(NullPointerException e) {
             // probably don't bother doing clean up
        // }
@@ -81,20 +81,23 @@ public class RacunService {
 
     public Racun findById(Long id){
         requestValidation.validateId(id);
-        return racunMapper.entityToDto(racunRepository.findById(id).get());
+        Racun racun=new Racun();
+        BeanUtils.copyProperties(racunRepository.findById(id).get(), racun);
+        return racun;
     }
 
-    public List<Racun> findByCreatedBy(Long createdBy){
+    public List<RacunEntity> findByCreatedBy(Long createdBy){
         requestValidation.validateCreatedBy(createdBy);
-        List<Racun> racun=new ArrayList<>();
-        return racunMapper.entitiesToDtos(racunRepository.findByCreatedBy(createdBy));
+
+        return racunRepository.findByCreatedBy(createdBy);
+
     }
 
 //moyda treba request
     public String updateRacun( Racun racunRequest){
         try {
             requestValidation.validateId(racunRequest.getId());
-            racunMapper.updateEntity(racunRequest,racunRepository.findById(racunRequest.getId()).get());
+            //racunMapper.updateEntity(racunRequest,racunRepository.findById(racunRequest.getId()).get());
 
         }
         catch(NullPointerException e) {
@@ -108,14 +111,16 @@ public class RacunService {
 
     public Racun findByUserId(@PathVariable long userId) {
         Racun racun=new Racun();
-        return racunMapper.entityToDto(racunRepository.findByUserId(userId));
+        BeanUtils.copyProperties(racunRepository.findByUserId(userId),racun);
+        return racun;
     }
     public Racun reservationCreateRacun(@PathVariable Long reservationId) {
 
         // racunRepository.findByReservationId(reservationId);
         RacunRequest racunRequest = new RacunRequest();
         racunRequest.setReservationId(reservationId);
-        RacunEntity racunEntity = racunMapper.dtoToEntity(racunRequest);
+        RacunEntity racunEntity = new RacunEntity();
+        BeanUtils.copyProperties(racunRequest,racunEntity);
         racunEntity.setPaid(false);
         racunRepository.save(racunEntity);
         RacunEntity re=racunRepository.findByReservationId(reservationId);

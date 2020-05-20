@@ -20,7 +20,7 @@ public class Racun {
     private Long reservationId;
     @NotNull
     private Long createdBy;
-    @NotNull
+
     private Date created;
     @NotNull
     private double cost;
