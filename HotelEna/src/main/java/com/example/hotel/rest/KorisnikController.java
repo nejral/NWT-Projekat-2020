@@ -31,6 +31,8 @@ public class KorisnikController {
 
     private RezervacijaClient rezervacijaClient;
 
+    private RacunClient racunClient;
+
     @ApiOperation(value = "Create User", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping()
     public String create(@Valid  @RequestBody KorisnikRequest korisnik) {
@@ -117,5 +119,12 @@ public class KorisnikController {
         rezervacijaClient.create(rezervacija);
         return "Successfully created Reservation!";
     }
-
+@GetMapping("/racun/all")
+    List<RacunEntity> allBills(){
+        return racunClient.all();
+}
+@PostMapping("/racun/create")
+    String  createRacun( @RequestBody  RacunRequest racunRequest) {
+   return  racunClient.create(racunRequest);
+}
 }
