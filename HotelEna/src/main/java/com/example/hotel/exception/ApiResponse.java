@@ -1,4 +1,4 @@
-package com.example.springsocial.payload;
+package com.example.hotel.exception;
 
 public class ApiResponse {
     private boolean success;

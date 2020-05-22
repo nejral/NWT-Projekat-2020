@@ -8,9 +8,7 @@ import java.util.*;
 
 @Repository
 public interface KorisnikRepository extends JpaRepository<KorisnikEntity, Long> {
-     Boolean existsByUsername(String username);
 
-    KorisnikEntity findByUsername(String username);
 
     Optional<KorisnikEntity> findByEmail(String email);
 

@@ -31,11 +31,12 @@ public class DodavanjeKorisnika {
         KorisnikEntity gost = new KorisnikEntity();
         gost.setName("Amina");
         gost.setSurname("Fajic");
-        gost.setUsername("aminaanaan");
+        //gost.setUsername("aminaanaan");
         gost.setRole("USER");
+        gost.setProvider(AuthProvider.google);
         gost.setEmail("aminafajic879@gmail.com");
         gost.setPassword("something");
-        gost.setEmployeeInd(false);
+        //gost.setEmployeeInd(false);
         korisnikRepozitorij.save(gost);
     }
 
@@ -43,9 +44,10 @@ public class DodavanjeKorisnika {
         KorisnikEntity zaposlenik = new KorisnikEntity();
         zaposlenik.setName("Nejra");
         zaposlenik.setSurname("Lacevic");
-        zaposlenik.setUsername("nejral");
+        //zaposlenik.setUsername("nejral");
+        zaposlenik.setProvider(AuthProvider.google);
         zaposlenik.setPassword("something2");
-        zaposlenik.setEmployeeInd(true);
+       // zaposlenik.setEmployeeInd(true);
         korisnikRepozitorij.save(zaposlenik);
     }
 }

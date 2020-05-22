@@ -1,11 +1,8 @@
-package com.example.springsocial.payload;
+package com.example.hotel.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
+
 
 public class SignUpRequest {
     @NotBlank
@@ -18,6 +15,16 @@ public class SignUpRequest {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String surname;
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
     public String getName() {
         return name;
     }

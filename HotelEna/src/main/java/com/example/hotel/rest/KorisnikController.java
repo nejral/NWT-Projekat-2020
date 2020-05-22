@@ -9,6 +9,7 @@ import com.example.hotel.service.*;
 import com.example.hotel.validation.*;
 import io.swagger.annotations.*;
 import lombok.*;
+import org.springframework.amqp.rabbit.core.*;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.*;
 @RequestMapping("/korisnik")
 public class KorisnikController {
 
-
+    public static final String topicExchangeName = "spring-boot-exchange";
     private RequestValidation requestValidation;
 
     private KorisnikService korisnikService;
@@ -32,6 +33,7 @@ public class KorisnikController {
     private RezervacijaClient rezervacijaClient;
 
     private RacunClient racunClient;
+    private RabbitTemplate rabbitTemplate;
 
     @ApiOperation(value = "Create User", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping()
@@ -102,7 +104,7 @@ public class KorisnikController {
     @ApiOperation(value = "Login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/login")
     String login(@RequestBody KorisnikLoginRequest korisnikLoginRequest) {
-        requestValidation.validateLogin(korisnikLoginRequest);
+        //requestValidation.validateLogin(korisnikLoginRequest);
         return "Successfully logged in!";
     }
 
@@ -126,5 +128,13 @@ public class KorisnikController {
 @PostMapping("/racun/create")
     String  createRacun( @RequestBody  RacunRequest racunRequest) {
    return  racunClient.create(racunRequest);
+}
+
+@PostMapping("/pay/bill/{racunId}")
+    String payBill(@PathVariable Long racunId){
+        //poslati poruku na racun i na rezervacija servis da je placeno
+    rabbitTemplate.convertAndSend(topicExchangeName,
+            "racun.pay", racunId);
+    return "We have sent a message! :" + racunId;
 }
 }

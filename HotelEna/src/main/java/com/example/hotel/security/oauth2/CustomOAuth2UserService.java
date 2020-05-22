@@ -1,29 +1,27 @@
-package com.example.springsocial.security.oauth2;
+package com.example.hotel.security.oauth2;
 
-import com.example.springsocial.exception.OAuth2AuthenticationProcessingException;
-import com.example.springsocial.model.AuthProvider;
-import com.example.springsocial.model.User;
-import com.example.springsocial.repository.UserRepository;
-import com.example.springsocial.security.UserPrincipal;
-import com.example.springsocial.security.oauth2.user.OAuth2UserInfo;
-import com.example.springsocial.security.oauth2.user.OAuth2UserInfoFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.Optional;
+import com.example.hotel.exception.*;
+import com.example.hotel.models.*;
+import com.example.hotel.repository.*;
+import com.example.hotel.security.*;
+import com.example.hotel.security.oauth2.user.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import org.springframework.security.oauth2.client.userinfo.*;
+import org.springframework.security.oauth2.core.*;
+import org.springframework.security.oauth2.core.user.*;
+import org.springframework.stereotype.*;
+import org.springframework.util.*;
+
+import java.util.*;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private KorisnikRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -45,8 +43,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-        User user;
+        Optional<KorisnikEntity> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        KorisnikEntity user;
         if(userOptional.isPresent()) {
             user = userOptional.get();
             if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
@@ -62,20 +60,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 
-    private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = new User();
+    private KorisnikEntity registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+        KorisnikEntity user = new KorisnikEntity();
 
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setProviderId(oAuth2UserInfo.getId());
+        //user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
-        user.setImageUrl(oAuth2UserInfo.getImageUrl());
+       // user.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
     }
 
-    private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
+    private KorisnikEntity updateExistingUser(KorisnikEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setName(oAuth2UserInfo.getName());
-        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        //existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }
 

@@ -27,10 +27,10 @@ public class KorisnikService {
     KorisnikRepository korisnikRepository;
 
     public String create(final KorisnikRequest korisnikRequest) throws ConstraintViolationException{
-        requestValidation.validateCreateRequest(korisnikRequest);
+        //requestValidation.validateCreateRequest(korisnikRequest);
         KorisnikEntity korisnikEntity=new KorisnikEntity();
         BeanUtils.copyProperties(korisnikRequest,korisnikEntity);
-        korisnikEntity.setEmployeeInd(false);
+        //korisnikEntity.setEmployeeInd(false);
         korisnikRepository.save(korisnikEntity);
         return "User successfully created";
     }

@@ -54,13 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(passwordEncoder());
+                .userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+   public PasswordEncoder passwordEncoder() {
+       return new BCryptPasswordEncoder();
     }
 
 
