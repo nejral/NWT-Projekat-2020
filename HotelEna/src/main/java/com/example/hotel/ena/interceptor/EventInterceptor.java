@@ -1,7 +1,9 @@
 package com.example.hotel.ena.interceptor;
 
+import com.example.hotel.ena.EventRequest;
+import com.example.hotel.ena.EventResponse;
+import com.example.hotel.ena.EventsServiceGrpc;
 import com.google.protobuf.*;
-import com.system.systemevents.*;
 import io.grpc.*;
 import org.apache.logging.log4j.*;
 import org.springframework.beans.factory.annotation.Value;
