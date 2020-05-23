@@ -30,7 +30,7 @@ public class EventsServiceImplRacun extends EventsServiceGrpc.EventsServiceImplB
     ) throws IOException {
         this.eventRepository = eventRepository;
 
-        Server server = ServerBuilder.forPort(8089)
+        Server server = ServerBuilder.forPort(8090)
                 .addService(this)
                 .build();
 
