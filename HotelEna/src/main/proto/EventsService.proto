@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package com.system.systemevents;
+package com.example.hotel;
 
 import "google/protobuf/timestamp.proto";
 
