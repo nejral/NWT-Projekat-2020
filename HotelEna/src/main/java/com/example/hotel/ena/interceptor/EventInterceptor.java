@@ -1,7 +1,7 @@
 package com.example.hotel.ena.interceptor;
 
 import com.google.protobuf.*;
-import com.system.systemevents.*;
+import com.example.hotel.ena.*;
 import io.grpc.*;
 import org.apache.logging.log4j.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class EventInterceptor extends HandlerInterceptorAdapter {
 
         eventsService = EventsServiceGrpc.newBlockingStub(channel);
     }
-
+    
     // before sending request to controller
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -83,13 +83,13 @@ public class EventInterceptor extends HandlerInterceptorAdapter {
                 EventRequest.newBuilder()
                         .setServiceName("rezervacija")
                         .setActionTimestamp(Timestamp.newBuilder().setSeconds(Instant.now().getEpochSecond()).build())
-                        .setUserId(0)
+                        .setUserId(0) 
                         .setActionType(actionType)
                         .setResourceName(resourceName)
                         .setResponseType(responseType)
                         .build()
         );
-
+        
         System.out.println(actionType.toString() + " " + resourceName.toString() + " " + responseType.toString());
     }
 }

@@ -6,7 +6,7 @@ import java.sql.*;
 
 @Entity
 @Table(name="Event")
-public class EventRequest {
+public class Event {
 
     @Id
     @NotNull
@@ -37,9 +37,9 @@ public class EventRequest {
     private String responseType;
 
 
-    protected EventRequest() {}
+    protected Event() {}
 
-    public EventRequest(
+    public Event(
             @NotNull Long eventID,
             @NotBlank @NotNull(message = "actionTimestamp type cannot be null.") Timestamp actionTimestamp,
             @NotBlank @NotNull(message = "serviceName type cannot be null.") String serviceName,
@@ -61,7 +61,7 @@ public class EventRequest {
         return eventID;
     }
 
-    public EventRequest setEventID(Long eventID) {
+    public Event setEventID(Long eventID) {
         this.eventID = eventID;
         return this;
     }
@@ -70,7 +70,7 @@ public class EventRequest {
         return actionTimestamp;
     }
 
-    public EventRequest setActionTimestamp(Timestamp actionTimestamp) {
+    public Event setActionTimestamp(Timestamp actionTimestamp) {
         this.actionTimestamp = actionTimestamp;
         return this;
     }
@@ -79,7 +79,7 @@ public class EventRequest {
         return serviceName;
     }
 
-    public EventRequest setServiceName(String serviceName) {
+    public Event setServiceName(String serviceName) {
         this.serviceName = serviceName;
         return this;
     }
@@ -88,7 +88,7 @@ public class EventRequest {
         return userId;
     }
 
-    public EventRequest setUserId(Long userId) {
+    public Event setUserId(Long userId) {
         this.userId = userId;
         return this;
     }
@@ -97,7 +97,7 @@ public class EventRequest {
         return actionType;
     }
 
-    public EventRequest setActionType(String actionType) {
+    public Event setActionType(String actionType) {
         this.actionType = actionType;
         return this;
     }
@@ -106,7 +106,7 @@ public class EventRequest {
         return resourceName;
     }
 
-    public EventRequest setResourceName(String resourceName) {
+    public Event setResourceName(String resourceName) {
         this.resourceName = resourceName;
         return this;
     }
@@ -115,7 +115,7 @@ public class EventRequest {
         return responseType;
     }
 
-    public EventRequest setResponseType(String responseType) {
+    public Event setResponseType(String responseType) {
         this.responseType = responseType;
         return this;
     }

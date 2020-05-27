@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 public class Rezervacija implements Serializable {
 
     @NotNull

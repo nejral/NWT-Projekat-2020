@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.*;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,12 +66,6 @@ class RezervacijaController {
 
     @GetMapping("/allByUserId/{id}")
 
-    Rezervacija allByUserId(@PathVariable Long id) {
-        RezervacijaEntity lista =rezervacijaRepository.findByUserId(id);
-        Rezervacija rezervacije = new Rezervacija();
-        BeanUtils.copyProperties(lista, rezervacije);
-        return rezervacije;
-
     List<Rezervacija> allByUserId(@PathVariable Long id) {
         List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
         List<Rezervacija> pomRezervacije = new ArrayList<>();
@@ -104,18 +97,7 @@ for(RezervacijaEntity rezervacijaEntity:lista){
 
 
 
-        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
-        List<Rezervacija> pomRezervacije = new ArrayList<>();
 
-        for (RezervacijaEntity rez : rezervacije){
-            if (rez.getCreatedBy() == id) {
-                Rezervacija pomRez = new Rezervacija();
-                BeanUtils.copyProperties(rez, pomRez);
-                pomRezervacije.add(pomRez);
-            }
-        }
-        return pomRezervacije;
-    }
 
 
     @GetMapping("/checkExpired")
