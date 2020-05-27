@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.time.*;
 import java.util.Date;
 
 @Entity
@@ -21,7 +22,7 @@ public class RezervacijaEntity {
     private Long createdBy;
 
     @Column
-    private Date created;
+    private LocalDateTime created;
     @Column
     private Date validFrom;
     @Column
@@ -76,11 +77,11 @@ public void setDone(Boolean done){
         this.createdBy = createdBy;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 

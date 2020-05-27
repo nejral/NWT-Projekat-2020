@@ -10,25 +10,32 @@ import org.springframework.stereotype.*;
 @Service
 @Slf4j
 public class ReceiveMessageHandler {
-    @Autowired
+
 RezervacijaRepository rezervacijaRepository;
     @Autowired
 RabbitTemplate rabbitTemplate;
+    public static final String topicExchangeName = "spring-boot-exchange";
     public void receiveMessage(Long messageBody) {
         log.info("HandleMessage!!!");
-       // log.info(messageBody);
-        //if (!messageBody.contains("failed")) {
+
             try {
-                RezervacijaEntity racunEntity = rezervacijaRepository.findByRacunId(Long.valueOf(messageBody)).get();
-                racunEntity.setDone(true);
+                RezervacijaEntity rezervacijaEntity = rezervacijaRepository.findByRacunId(messageBody).get();
+                rezervacijaEntity.setDone(true);
+                rezervacijaRepository.save(rezervacijaEntity);
             } catch (Exception e) {
-                rabbitTemplate.convertAndSend("failed " + messageBody);
+                log.info("Failed");
+                log.info(e.getMessage());
+                rabbitTemplate.convertAndSend(topicExchangeName,
+                        "foo.bar.baz","failed " + messageBody);
             }
         }
-      //  else{
-          //  RezervacijaEntity rezervacijaEntity=rezervacijaRepository.findByRacunId(Long.valueOf(messageBody.substring(7))).get();
-         //   rezervacijaEntity.setDone(false);
-       // }
-   // }
 
+public void receiveMessage(String failMessage){
+    log.info("Handle Fail Message!!!");
+     log.info(failMessage);
+     log.info(failMessage.substring(7));
+    RezervacijaEntity rezervacijaEntity=rezervacijaRepository.findByRacunId(Long.valueOf(failMessage.substring(7))).get();
+      rezervacijaEntity.setDone(false);
+      rezervacijaRepository.save(rezervacijaEntity);
+}
 }
