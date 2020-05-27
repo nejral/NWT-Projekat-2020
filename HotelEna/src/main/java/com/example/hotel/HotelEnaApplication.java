@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.*;
 import org.springframework.cloud.client.discovery.*;
 import org.springframework.cloud.netflix.eureka.*;
+import org.springframework.cloud.netflix.zuul.*;
 import org.springframework.cloud.openfeign.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.amqp.core.Binding;
@@ -22,10 +23,11 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.*;
 
-
+@SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@SpringBootApplication
+@EnableZuulProxy
+
 public class HotelEnaApplication {
 
     public static void main(String[] args) {

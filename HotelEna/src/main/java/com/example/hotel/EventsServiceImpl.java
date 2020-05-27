@@ -52,7 +52,7 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
         ));
 
         EventResponse response = EventResponse.newBuilder()
-                .setEventResponseText("OkiDoki") // todo nigdje nije definisan odgovor RPCa?
+                .setEventResponseText("OkiDoki")
                 .build();
 
         com.example.hotel.db.entity.EventRequest dbEntity = new com.example.hotel.db.entity.EventRequest(

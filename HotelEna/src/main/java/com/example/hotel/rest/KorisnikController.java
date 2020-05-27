@@ -134,7 +134,7 @@ public class KorisnikController {
     String payBill(@PathVariable Long racunId){
         //poslati poruku na racun i na rezervacija servis da je placeno
     rabbitTemplate.convertAndSend(topicExchangeName,
-            "racun.pay", racunId);
+            "foo.bar.baz", racunId);
     return "We have sent a message! :" + racunId;
 }
 }
