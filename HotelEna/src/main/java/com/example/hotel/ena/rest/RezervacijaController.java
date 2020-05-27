@@ -1,5 +1,6 @@
 package com.example.hotel.ena.rest;
 
+import com.example.hotel.ena.dto.Racun;
 import com.example.hotel.ena.models.RezervacijaEntity;
 import com.example.hotel.ena.dto.Rezervacija;
 import com.example.hotel.ena.repository.RezervacijaRepository;
@@ -9,8 +10,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.sql.Date;
 import java.util.*;
+
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
+
 
 @AllArgsConstructor
 @RestController
@@ -22,15 +32,32 @@ class RezervacijaController {
 
     @PostMapping()
     public String create(@RequestBody Rezervacija rezervacija) {
-        if (requestValidation.validateUser_id(rezervacija.getUserId()) == null) {
+
+       
+
+        if (requestValidation.validateUserId(rezervacija.getUserId()) == null) {
+
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
             rezervacijaRepository.save(rezervacijaEntity);
             return "Successfully created!";
         }
 
-        return requestValidation.validateUser_id(rezervacija.getUserId());
 
+        return requestValidation.validateUserId(rezervacija.getUserId());
+
+    }
+
+    @PostMapping("/createByUserId/{id}")
+    public String createByUserId(@RequestBody Rezervacija rezervacija, @PathVariable Long id) {
+        if (requestValidation.validateUserId(id) == null) {
+            RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
+            BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
+            rezervacijaEntity.setUserId(id);
+            rezervacijaRepository.save(rezervacijaEntity);
+            return "Successfully created!";
+        }
+        return requestValidation.validateUserId(rezervacija.getUserId());
     }
 
     @GetMapping("/all")
@@ -39,15 +66,31 @@ class RezervacijaController {
     }
 
     @GetMapping("/allByUserId/{id}")
+
     Rezervacija allByUserId(@PathVariable Long id) {
         RezervacijaEntity lista =rezervacijaRepository.findByUserId(id);
         Rezervacija rezervacije = new Rezervacija();
         BeanUtils.copyProperties(lista, rezervacije);
         return rezervacije;
+
+    List<Rezervacija> allByUserId(@PathVariable Long id) {
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
+
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getUserId() == id) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
+        }
+        return pomRezervacije;
+
     }
 
     @GetMapping("/allByCreatedBy/{id}")
     List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
+
         List<RezervacijaEntity> lista =rezervacijaRepository.findByCreatedBy(id);
         List<Rezervacija> rezervacije=new ArrayList<Rezervacija>();
 for(RezervacijaEntity rezervacijaEntity:lista){
@@ -61,22 +104,52 @@ for(RezervacijaEntity rezervacijaEntity:lista){
 
 
 
-    @GetMapping("/checkExpired")
-    List<Rezervacija> checkExpired() {
-        List<RezervacijaEntity> lista = rezervacijaRepository.findAll();
-        for (RezervacijaEntity rez : lista){
-            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) > 0)
-                lista.remove(rez);
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
+
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getCreatedBy() == id) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
         }
-        List<Rezervacija> rezervacije = null;
-        BeanUtils.copyProperties(rezervacije, lista);
-        return rezervacije;
+        return pomRezervacije;
     }
 
+
+    @GetMapping("/checkExpired")
+    List<Rezervacija> checkExpired() {
+        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Rezervacija> pomRezervacije = new ArrayList<>();
+
+        for (RezervacijaEntity rez : rezervacije){
+            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) <= 0) {
+                Rezervacija pomRez = new Rezervacija();
+                BeanUtils.copyProperties(rez, pomRez);
+                pomRezervacije.add(pomRez);
+            }
+        }
+        return pomRezervacije;
+    }/*
+    @GetMapping("racun/reservation/{reservationId}")
+    Racun findRacunByReservationId(@PathVariable Long reservationId) {
+        return rezervacijaService.findByReservationId(reservationId);
+    }*/
+    @GetMapping("/{reservationId}")
+    Racun reservationRacun(@PathVariable Long reservationId) {
+        return rezervacijaService.reservationRacun(reservationId);
+    }
+
+    @PostMapping("/reservation/{reservationId}")
+    Racun reservationCreateRacun(@PathVariable Long reservationId) {
+        return rezervacijaService.reservationCreateRacun(reservationId);
+    }
 
     @PutMapping("/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
+
         if (rezervacijaEntity == null) {
             return "Rezervacija with id does not exist!";
         } else {

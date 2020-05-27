@@ -1,10 +1,12 @@
 package com.example.hotel.ena.models;
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
+@AllArgsConstructor
 @Table(name = "rezervacijaentity")
 public class RezervacijaEntity {
     @javax.persistence.Id
@@ -31,12 +33,24 @@ private Long racunId;
 private Boolean done;
 public Long getRacunId(){ return racunId;}
 
+
 public void setRacunId(Long racunId) { this.racunId=racunId;}
 
 public Boolean getDone() { return this.done;}
 public void setDone(Boolean done){
     this.done=done;
 }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "salaentity_id", referencedColumnName = "id")
+    private SalaEntity salaentity;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sobaentity_id", referencedColumnName = "id")
+    private SalaEntity sobaentity;
+
+
+
     public Long getId() {
         return id;
     }
@@ -84,6 +98,23 @@ public void setDone(Boolean done){
 
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
+    }
+
+
+    public SalaEntity getSalaentity() {
+        return salaentity;
+    }
+
+    public void setSalaentity(SalaEntity salaentity) {
+        this.salaentity = salaentity;
+    }
+
+    public SalaEntity getSobaentity() {
+        return sobaentity;
+    }
+
+    public void setSobaentity(SalaEntity sobaentity) {
+        this.sobaentity = sobaentity;
     }
 
     public RezervacijaEntity() {

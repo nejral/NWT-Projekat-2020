@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class RequestValidation {
     @Autowired
     RezervacijaRepository rezervacijaRepository;
-    public String validateUser_id(Long user_id){
+    public String validateUserId(Long user_id){
         if(user_id == null || user_id.toString().isEmpty()){
             return "User_id required";
         }

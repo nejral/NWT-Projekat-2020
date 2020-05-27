@@ -41,11 +41,15 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacija() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
+
        rezervacija.setUserId(Long.valueOf(123));
+
+       rezervacija.setUserId(123L);
+
        rezervacija.setCreatedBy(345L);
        rezervacija.setCreated(new Date(System.currentTimeMillis()));
-       rezervacija.setValidFrom((Date.valueOf("1-5-2020")));
-        rezervacija.setValidTo((Date.valueOf("10-5-2020")));
+       rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
+        rezervacija.setValidTo(new Date(System.currentTimeMillis()));
         String inputJson = super.mapToJson(rezervacija);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -60,11 +64,16 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacijaError() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
+
         rezervacija.setUserId(Long.valueOf(123));
         rezervacija.setCreatedBy(456L);
+
+        //rezervacija.setUserId(Long.valueOf(5));
+        rezervacija.setCreatedBy(Long.valueOf(2));
+
         rezervacija.setCreated(new Date(System.currentTimeMillis()));
-        rezervacija.setValidFrom(Date.valueOf("11-5-2020"));
-        rezervacija.setValidTo(Date.valueOf("15-5-2020"));
+        rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
+        rezervacija.setValidTo(new Date(System.currentTimeMillis()));
 
         String inputJson = super.mapToJson(rezervacija);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
@@ -78,7 +87,7 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     }
     @Test
         public void deleteRezervacija() throws Exception {
-            String uri = "/rezervacija/1";
+            String uri = "/rezervacija/21";
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);

@@ -6,12 +6,15 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
-public class Racun {
+public class Racun implements Serializable{
 
+    @NotNull
     private Long id;
 
+    @NotNull
     private double iznos;
 
-
+    @NotNull
+    private Long reservationId;
 
 }
