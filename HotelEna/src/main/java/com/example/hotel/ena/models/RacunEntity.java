@@ -50,7 +50,7 @@ public class RacunEntity {
     }
 
 
-    private Date created;
+    private LocalDateTime created;
 
     @NotNull
     @Column

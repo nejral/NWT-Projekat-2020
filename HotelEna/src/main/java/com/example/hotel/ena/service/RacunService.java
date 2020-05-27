@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class RacunService {
             BeanUtils.copyProperties(racunRequest,racunEntity);
 
             racunEntity.setPaid(false);
+            racunEntity.setCreated(LocalDateTime.now());
            // System.out.println(racunEntity);
             racunRepository.save(racunEntity);
 

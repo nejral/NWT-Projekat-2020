@@ -95,7 +95,7 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateInString = "07/06/2020";
             Date date = formatter.parse(dateInString);
-            racun.setCreated(date);
+            //racun.setCreated(date);
         racun.setId((long) 4);
        // racun.setCreated(Date.valueOf("2020-04-03"));
         racun.setCreatedBy(1L);

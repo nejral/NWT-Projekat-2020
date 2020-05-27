@@ -41,16 +41,7 @@ public class RacunController {
     public String create(@Valid @RequestBody RacunRequest racunRequest) {
         return racunService.create(racunRequest);
     }
-   /* @PostMapping()
-    String newRacun(@RequestBody RacunEntity noviRacun) {
-        if(requestValidation.validateIznos(noviRacun.getCost())==null) {
-            racunRepository.save(noviRacun);
-            return "Racun created successfully";
-        }
-        else {
-            return requestValidation.validateIznos(noviRacun.getCost());
-        }
-    }*/
+
 
 
 

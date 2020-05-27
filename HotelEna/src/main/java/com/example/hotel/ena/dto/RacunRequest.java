@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 public class RacunRequest implements Serializable {
 
-    private Long id;
     @NotNull(message = "Cost is mandatory")
     //@Size(min=5, max=30)
     private double cost;
