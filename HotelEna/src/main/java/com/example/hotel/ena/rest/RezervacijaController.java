@@ -10,8 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @RestController
@@ -48,10 +47,14 @@ class RezervacijaController {
     }
 
     @GetMapping("/allByCreatedBy/{id}")
-    Rezervacija allByCreatedBy(@PathVariable Long id) {
-        RezervacijaEntity lista =rezervacijaRepository.findByCreatedBy(id);
-        Rezervacija rezervacije = new Rezervacija();
-        BeanUtils.copyProperties(lista, rezervacije);
+    List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
+        List<RezervacijaEntity> lista =rezervacijaRepository.findByCreatedBy(id);
+        List<Rezervacija> rezervacije=new ArrayList<Rezervacija>();
+for(RezervacijaEntity rezervacijaEntity:lista){
+    Rezervacija rezervacija=new Rezervacija();
+    BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
+    rezervacije.add(rezervacija);
+}
         return rezervacije;
             }
 
