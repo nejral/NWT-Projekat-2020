@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class Rezervacija implements Serializable {
 
     @NotNull
@@ -70,5 +71,4 @@ public class Rezervacija implements Serializable {
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
     }
-
 }

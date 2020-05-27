@@ -10,10 +10,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.sql.Date;
+import java.util.*;
+
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 
 
@@ -27,12 +32,17 @@ class RezervacijaController {
 
     @PostMapping()
     public String create(@RequestBody Rezervacija rezervacija) {
+
+       
+
         if (requestValidation.validateUserId(rezervacija.getUserId()) == null) {
+
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
             rezervacijaRepository.save(rezervacijaEntity);
             return "Successfully created!";
         }
+
 
         return requestValidation.validateUserId(rezervacija.getUserId());
 
@@ -56,6 +66,13 @@ class RezervacijaController {
     }
 
     @GetMapping("/allByUserId/{id}")
+
+    Rezervacija allByUserId(@PathVariable Long id) {
+        RezervacijaEntity lista =rezervacijaRepository.findByUserId(id);
+        Rezervacija rezervacije = new Rezervacija();
+        BeanUtils.copyProperties(lista, rezervacije);
+        return rezervacije;
+
     List<Rezervacija> allByUserId(@PathVariable Long id) {
         List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
         List<Rezervacija> pomRezervacije = new ArrayList<>();
@@ -68,10 +85,25 @@ class RezervacijaController {
             }
         }
         return pomRezervacije;
+
     }
 
     @GetMapping("/allByCreatedBy/{id}")
     List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
+
+        List<RezervacijaEntity> lista =rezervacijaRepository.findByCreatedBy(id);
+        List<Rezervacija> rezervacije=new ArrayList<Rezervacija>();
+for(RezervacijaEntity rezervacijaEntity:lista){
+    Rezervacija rezervacija=new Rezervacija();
+    BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
+    rezervacije.add(rezervacija);
+}
+        return rezervacije;
+            }
+
+
+
+
         List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
         List<Rezervacija> pomRezervacije = new ArrayList<>();
 
@@ -84,6 +116,7 @@ class RezervacijaController {
         }
         return pomRezervacije;
     }
+
 
     @GetMapping("/checkExpired")
     List<Rezervacija> checkExpired() {

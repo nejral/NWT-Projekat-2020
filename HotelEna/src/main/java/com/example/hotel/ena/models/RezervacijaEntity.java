@@ -27,7 +27,19 @@ public class RezervacijaEntity {
     @Column
     private Date validTo;
 
+@Column
+private Long racunId;
+@Column
+private Boolean done;
+public Long getRacunId(){ return racunId;}
 
+
+public void setRacunId(Long racunId) { this.racunId=racunId;}
+
+public Boolean getDone() { return this.done;}
+public void setDone(Boolean done){
+    this.done=done;
+}
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "salaentity_id", referencedColumnName = "id")
     private SalaEntity salaentity;
@@ -36,6 +48,7 @@ public class RezervacijaEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sobaentity_id", referencedColumnName = "id")
     private SalaEntity sobaentity;
+
 
 
     public Long getId() {
