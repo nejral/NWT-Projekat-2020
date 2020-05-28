@@ -41,7 +41,11 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacija() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
+
+       rezervacija.setUserId(Long.valueOf(123));
+
        rezervacija.setUserId(123L);
+
        rezervacija.setCreatedBy(345L);
        rezervacija.setCreated(new Date(System.currentTimeMillis()));
        rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
@@ -60,8 +64,13 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     public void createRezervacijaError() throws Exception {
         String uri = "/rezervacija";
         Rezervacija rezervacija = new Rezervacija();
+
+        rezervacija.setUserId(Long.valueOf(123));
+        rezervacija.setCreatedBy(456L);
+
         //rezervacija.setUserId(Long.valueOf(5));
         rezervacija.setCreatedBy(Long.valueOf(2));
+
         rezervacija.setCreated(new Date(System.currentTimeMillis()));
         rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
         rezervacija.setValidTo(new Date(System.currentTimeMillis()));

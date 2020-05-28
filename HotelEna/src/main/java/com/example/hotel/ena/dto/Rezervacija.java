@@ -70,5 +70,4 @@ public class Rezervacija implements Serializable {
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
     }
-
 }

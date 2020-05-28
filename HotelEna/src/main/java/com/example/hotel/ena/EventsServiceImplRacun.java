@@ -1,12 +1,11 @@
-package com.example.hotel.ena.systemevents.impl;
+package com.example.hotel.ena;
 
-
-
+import com.example.hotel.ena.*;
 import com.example.hotel.ena.db.*;
-import com.system.systemevents.*;
 import io.grpc.*;
 import io.grpc.stub.*;
 import org.apache.logging.log4j.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.io.*;
@@ -14,17 +13,18 @@ import java.sql.*;
 import java.time.*;
 import java.util.*;
 
+@Qualifier("serviceRezervacija")
 
 @Service
-public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
+public class EventsServiceImplRacun extends EventsServiceGrpc.EventsServiceImplBase {
     private Logger logger = LogManager.getLogger(getClass());
+    @Autowired
+    private  final EventRepository eventRepository;
 
-    private final EventRequestRepository eventRequestRepository;
-
-    public EventsServiceImpl(
-            EventRequestRepository eventRequestRepository
+    public EventsServiceImplRacun(
+            EventRepository eventRepository
     ) throws IOException {
-        this.eventRequestRepository = eventRequestRepository;
+        this.eventRepository = eventRepository;
 
         Server server = ServerBuilder.forPort(8088)
                 .addService(this)
@@ -38,7 +38,7 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
 
     @Override
     public void hello(
-            com.system.systemevents.EventRequest request, StreamObserver<EventResponse> responseObserver
+            EventRequest request, StreamObserver<EventResponse> responseObserver
     ) {
         logger.info(String.format(
                 "New event received: %s %s %s %s %s %s",
@@ -51,10 +51,10 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
         ));
 
         EventResponse response = EventResponse.newBuilder()
-                .setEventResponseText("Okej") // todo nigdje nije definisan odgovor RPCa?
+                .setEventResponseText("OkiDoki")
                 .build();
 
-        com.example.hotel.ena.db.entity.EventRequest dbEntity = new com.example.hotel.ena.db.entity.EventRequest(
+        com.example.hotel.ena.db.entity.Event event = new com.example.hotel.ena.db.entity.Event(
                 null,
                 Timestamp.from(Instant.ofEpochSecond(request.getActionTimestamp().getSeconds())),
                 request.getServiceName(),
@@ -64,7 +64,7 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
                 Optional.ofNullable(request.getResponseType()).map(Enum::name).orElse(null)
         );
 
-        eventRequestRepository.save(dbEntity);
+        eventRepository.save(event);
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
