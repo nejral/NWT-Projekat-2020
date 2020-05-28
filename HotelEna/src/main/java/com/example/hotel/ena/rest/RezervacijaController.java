@@ -1,9 +1,12 @@
 package com.example.hotel.ena.rest;
 
 import com.example.hotel.ena.dto.Racun;
+import com.example.hotel.ena.dto.Soba;
 import com.example.hotel.ena.models.RezervacijaEntity;
 import com.example.hotel.ena.dto.Rezervacija;
+import com.example.hotel.ena.models.SobaEntity;
 import com.example.hotel.ena.repository.RezervacijaRepository;
+import com.example.hotel.ena.repository.SobaRepository;
 import com.example.hotel.ena.service.RezervacijaService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
@@ -126,8 +129,6 @@ class RezervacijaController {
 
     }
 
-
-
     @DeleteMapping("/{id}")
     String deleteRezervacija(@PathVariable Long id) {
         if(requestValidation.validateId(id) != null)
@@ -135,6 +136,7 @@ class RezervacijaController {
         rezervacijaRepository.deleteById(id);
         return "Rezervacija is deleted successfully";
     }
+
 
 
 }
