@@ -49,6 +49,7 @@ class SobaController {
             return "Soba with id does not exist!";
         } else {
             BeanUtils.copyProperties(soba, sobaEntity);
+            sobaRepository.save(sobaEntity.get());
             return "Updated successfully!";
         }
 
