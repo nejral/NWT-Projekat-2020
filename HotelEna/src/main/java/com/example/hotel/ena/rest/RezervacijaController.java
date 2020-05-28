@@ -139,6 +139,7 @@ for(RezervacijaEntity rezervacijaEntity:lista){
             return "Rezervacija with id does not exist!";
         } else {
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
+            rezervacijaRepository.save(rezervacijaEntity.get());
             return "Updated successfully!";
         }
 
