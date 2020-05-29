@@ -1,37 +1,60 @@
 package com.example.hotel.ena.dto;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.*;
 import java.util.Date;
 
 @Data
 public class Rezervacija implements Serializable {
-
+    private Long id;
     @NotNull
     private Long userId;
     @NotNull
     private Long createdBy;
     @NotNull
-    private Date created;
+    private LocalDate created;
     @NotNull
-    private Date validFrom;
+    private LocalDate validFrom;
     @NotNull
-    private Date validTo;
+    private LocalDate validTo;
+    @NotNull
+    private Boolean done;
+    @NotNull
+    private Long racunId;
+    @NotNull
+    private Long salaentityId;
+    @NotNull
+    private Long sobaentityId;
 
-    public Rezervacija(Long userId, Long createdBy, Date created, Date validFrom, Date validTo) {
+
+    public Rezervacija(Long userId, Long createdBy, LocalDate created, LocalDate validFrom, LocalDate validTo) {
         this.userId = userId;
         this.createdBy = createdBy;
         this.created = created;
         this.validFrom = validFrom;
         this.validTo = validTo;
     }
-
+public Long getSalaentityId(){
+        return this.salaentityId;
+}
+public void setSalaentityId(Long salaentityId){
+        this.salaentityId=salaentityId;
+}
+public Long getSobaentityId(Long sobaentityId){
+        return this.sobaentityId;
+}
+public void setSobaentityId(Long sobaentityId){
+        this.sobaentityId=sobaentityId;
+}
     public Rezervacija(){ }
-
-    public Long getUserId() {
+public Long getId(){ return id;}
+public void setId(Long id){ this.id=id;}
+public Long getUserId() {
         return userId;
     }
 
@@ -47,27 +70,19 @@ public class Rezervacija implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getValidFrom() {
+    public LocalDate getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(Date validFrom) {
+    public void setValidFrom(LocalDate validFrom) {
         this.validFrom = validFrom;
     }
 
-    public Date getValidTo() {
+    public LocalDate getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(Date validTo) {
+    public void setValidTo(LocalDate validTo) {
         this.validTo = validTo;
     }
 }

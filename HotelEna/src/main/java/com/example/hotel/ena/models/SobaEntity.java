@@ -15,11 +15,10 @@ public class SobaEntity {
     //@OneToOne
     private Long id;
 
-    @OneToOne(mappedBy = "sobaentity")
-    private RezervacijaEntity rezervacijaentity;
 
-    @Column
-    private Blob slike;
+@Lob
+    @Column(name="slike",columnDefinition="BLOB")
+    private byte[] slike;
 
     @Column
     private int numberOfBeds;
@@ -35,11 +34,11 @@ public class SobaEntity {
         this.id = id;
     }
 
-    public Blob getSlike() {
+    public byte[] getSlike() {
         return slike;
     }
 
-    public void setSlike(Blob slike) {
+    public void setSlike(byte[] slike) {
         this.slike = slike;
     }
 

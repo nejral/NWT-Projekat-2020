@@ -17,8 +17,7 @@ public class SalaEntity {
     private Long id;
 
 
-    @OneToOne(mappedBy = "salaentity")
-    private RezervacijaEntity rezervacijaentity;
+
 
     @Column
     private int numberOfPeople;
@@ -29,13 +28,7 @@ public class SalaEntity {
     public SalaEntity(){}
 
 
-    public RezervacijaEntity getRezervacijaEntity() {
-        return rezervacijaentity;
-    }
 
-    public void setRezervacijaEntity(RezervacijaEntity rezervacija) {
-        this.rezervacijaentity = rezervacija;
-    }
     public Long getId() {
         return id;
     }

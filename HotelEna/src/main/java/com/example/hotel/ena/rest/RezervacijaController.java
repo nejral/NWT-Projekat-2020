@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.sql.Date;
+import java.time.*;
 import java.util.*;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ class RezervacijaController {
 
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
+            rezervacijaEntity.setCreated(LocalDateTime.now().toLocalDate());
             rezervacijaRepository.save(rezervacijaEntity);
             return "Successfully created!";
         }
@@ -109,12 +111,12 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         List<Rezervacija> pomRezervacije = new ArrayList<>();
 
         for (RezervacijaEntity rez : rezervacije){
-            if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) <= 0) {
+          //  if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) <= 0) {
                 Rezervacija pomRez = new Rezervacija();
                 BeanUtils.copyProperties(rez, pomRez);
                 pomRezervacije.add(pomRez);
             }
-        }
+       // }
         return pomRezervacije;
     }/*
     @GetMapping("racun/reservation/{reservationId}")
@@ -138,7 +140,12 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         if (rezervacijaEntity == null) {
             return "Rezervacija with id does not exist!";
         } else {
-            BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
+
+            RezervacijaEntity rezervacijaEntity1=rezervacijaEntity.get();
+            Long Id=rezervacijaEntity1.getId();
+            BeanUtils.copyProperties(rezervacija, rezervacijaEntity1);
+            rezervacijaEntity1.setId(Id);
+
             rezervacijaRepository.save(rezervacijaEntity.get());
             return "Updated successfully!";
         }
@@ -152,7 +159,13 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         rezervacijaRepository.deleteById(id);
         return "Rezervacija is deleted successfully";
     }
-
+@GetMapping("/find/{id}")
+    Rezervacija findById(@PathVariable Long id){
+       RezervacijaEntity rezervacijaEntity= rezervacijaRepository.findById(id).get();
+       Rezervacija rezervacija=new Rezervacija();
+    BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
+    return rezervacija;
+}
 
 
 }

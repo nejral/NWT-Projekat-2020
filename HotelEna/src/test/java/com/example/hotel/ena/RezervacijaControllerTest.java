@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
 import java.sql.Date;
+import java.time.*;
 import java.util.List;
 
 public class RezervacijaControllerTest extends HotelEnaApplicationTests {
@@ -47,9 +48,9 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
        rezervacija.setUserId(123L);
 
        rezervacija.setCreatedBy(345L);
-       rezervacija.setCreated(new Date(System.currentTimeMillis()));
-       rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
-        rezervacija.setValidTo(new Date(System.currentTimeMillis()));
+       rezervacija.setCreated(LocalDateTime.now().toLocalDate());
+       rezervacija.setValidFrom(LocalDateTime.now().toLocalDate());
+        rezervacija.setValidTo(LocalDateTime.now().toLocalDate());
         String inputJson = super.mapToJson(rezervacija);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -71,9 +72,9 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
         //rezervacija.setUserId(Long.valueOf(5));
         rezervacija.setCreatedBy(Long.valueOf(2));
 
-        rezervacija.setCreated(new Date(System.currentTimeMillis()));
-        rezervacija.setValidFrom(new Date(System.currentTimeMillis()));
-        rezervacija.setValidTo(new Date(System.currentTimeMillis()));
+        rezervacija.setCreated(LocalDateTime.now().toLocalDate());
+        rezervacija.setValidFrom(LocalDateTime.now().toLocalDate());
+        rezervacija.setValidTo(LocalDateTime.now().toLocalDate());
 
         String inputJson = super.mapToJson(rezervacija);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
