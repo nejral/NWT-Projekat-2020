@@ -1,9 +1,12 @@
 package com.example.hotel.ena.rest;
 
 import com.example.hotel.ena.dto.Racun;
+import com.example.hotel.ena.dto.Soba;
 import com.example.hotel.ena.models.RezervacijaEntity;
 import com.example.hotel.ena.dto.Rezervacija;
+import com.example.hotel.ena.models.SobaEntity;
 import com.example.hotel.ena.repository.RezervacijaRepository;
+import com.example.hotel.ena.repository.SobaRepository;
 import com.example.hotel.ena.service.RezervacijaService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
@@ -137,17 +140,17 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         if (rezervacijaEntity == null) {
             return "Rezervacija with id does not exist!";
         } else {
+
             RezervacijaEntity rezervacijaEntity1=rezervacijaEntity.get();
             Long Id=rezervacijaEntity1.getId();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity1);
             rezervacijaEntity1.setId(Id);
+
             rezervacijaRepository.save(rezervacijaEntity.get());
             return "Updated successfully!";
         }
 
     }
-
-
 
     @DeleteMapping("/{id}")
     String deleteRezervacija(@PathVariable Long id) {
@@ -163,5 +166,6 @@ for(RezervacijaEntity rezervacijaEntity:lista){
     BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
     return rezervacija;
 }
+
 
 }
