@@ -71,7 +71,7 @@ public String deleteById(Long id){
         return racunClient.payBills(ids);
     }
 
-    public Rezervacija allByUserId(Long id) {
+    public List<Rezervacija> allByUserId(Long id) {
         return rezervacijaClient.allByUserId(id);
     }
 

@@ -90,7 +90,7 @@ public class KorisnikController {
 
     @ApiOperation(value = "Get All Reservations by User with Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/reservation/{id}")
-    Rezervacija getGuestsReservations(@PathVariable Long id) {
+    List<Rezervacija> getGuestsReservations(@PathVariable Long id) {
         return korisnikService.allByUserId(id);
     }
 
@@ -137,4 +137,16 @@ public class KorisnikController {
             "foo.bar.baz", racunId);
     return "We have sent a message! :" + racunId;
 }
+    @DeleteMapping("/rezervacija/{id}")
+    String deleteRezervacija(@PathVariable Long id) {
+        return rezervacijaClient.deleteRezervacija(id);
+    }
+    @GetMapping("/rezervacija/{id}")
+    Rezervacija getRezervacija(@PathVariable Long id) {
+        return rezervacijaClient.findById(id);
+    }
+    @PutMapping("/rezervacija/{id}")
+    String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
+        return rezervacijaClient.update(id,rezervacija);
+    }
 }
