@@ -18,6 +18,10 @@ public class DodavanjeRezervacija {
 
     @Autowired
     private RezervacijaRepository rezervacijaRepozitorij;
+    @Autowired
+    private SobaRepository sobaRepozitorij;
+    @Autowired
+    private SalaRepository salaRepozitorij;
 
     @EventListener
 
@@ -32,10 +36,18 @@ public class DodavanjeRezervacija {
 
         RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
         rezervacijaEntity.setDone(false);
-        rezervacijaEntity.setCreated(LocalDateTime.now());
+        //rezervacijaEntity.setCreated(LocalDateTime.now());
 rezervacijaEntity.setCreatedBy(Long.valueOf(1));
 rezervacijaEntity.setRacunId(Long.valueOf(1));
         rezervacijaRepozitorij.save(rezervacijaEntity);
+        SobaEntity soba= new SobaEntity();
+        soba.setBusy(true);
+        soba.setNumberOfBeds(3);
+        sobaRepozitorij.save(soba);
+        SalaEntity sala=new SalaEntity();
+        sala.setNumberOfPeople(4);
+        sala.setUserId(Long.valueOf(1));
+        salaRepozitorij.save(sala);
     }
 
 

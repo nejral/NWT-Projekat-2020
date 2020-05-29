@@ -22,11 +22,11 @@ public class RezervacijaEntity {
     private Long createdBy;
 
     @Column
-    private LocalDateTime created;
+    private LocalDate created;
     @Column
-    private Date validFrom;
+    private LocalDate validFrom;
     @Column
-    private Date validTo;
+    private LocalDate validTo;
 
 @Column
 private Long racunId;
@@ -41,15 +41,16 @@ public Boolean getDone() { return this.done;}
 public void setDone(Boolean done){
     this.done=done;
 }
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "salaentity_id", referencedColumnName = "id")
-    private SalaEntity salaentity;
+
+public Long getSalaentityId(){ return  this.salaentityId;}
+public void setSalaentityId(Long salaentityId){ this.salaentityId=salaentityId;}
+    private Long salaentityId;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sobaentity_id", referencedColumnName = "id")
-    private SalaEntity sobaentity;
 
+    private Long sobaentityId;
+    public Long getSobaentityId(){ return  this.sobaentityId;}
+    public void setSobaentityId(Long sobaentityId){ this.sobaentityId=sobaentityId;}
 
 
     public Long getId() {
@@ -77,46 +78,32 @@ public void setDone(Boolean done){
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 
-    public Date getValidFrom() {
+    public LocalDate getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(Date validFrom) {
+    public void setValidFrom(LocalDate validFrom) {
         this.validFrom = validFrom;
     }
 
-    public Date getValidTo() {
+    public LocalDate getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(Date validTo) {
+    public void setValidTo(LocalDate validTo) {
         this.validTo = validTo;
     }
 
 
-    public SalaEntity getSalaentity() {
-        return salaentity;
-    }
 
-    public void setSalaentity(SalaEntity salaentity) {
-        this.salaentity = salaentity;
-    }
-
-    public SalaEntity getSobaentity() {
-        return sobaentity;
-    }
-
-    public void setSobaentity(SalaEntity sobaentity) {
-        this.sobaentity = sobaentity;
-    }
 
     public RezervacijaEntity() {
     }
