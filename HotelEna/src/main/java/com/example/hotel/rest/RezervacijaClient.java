@@ -26,4 +26,35 @@ public interface RezervacijaClient {
 
     @PutMapping("/rezervacija/{id}")
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija);
+//soba controller
+    @DeleteMapping("/rezervacija/soba/{id}")
+    String deleteSoba(@PathVariable Long id);
+
+    @PutMapping("/rezervacija/soba/{id}")
+    String update(@PathVariable Long id, @RequestBody Soba soba);
+
+    @GetMapping("/rezervacija/soba/all")
+    List<SobaEntity> all();
+
+    @PostMapping("rezervacija/soba")
+    public String create(@RequestBody Soba soba);
+
+    @GetMapping("/rezervacija/soba/{id}")
+    Soba findRoomById(@PathVariable Long id);
+
+    @PostMapping("rezervacija/sala")
+    public String create(@RequestBody Sala sala);
+
+    @GetMapping("rezervacija/sala/all")
+    List<SalaEntity> allHalls();
+
+    @PutMapping("rezervacija/sala/{id}")
+    String update(@PathVariable Long id, @RequestBody Sala sala);
+
+    @DeleteMapping("rezervacija/sala/{id}")
+    String deleteSala(@PathVariable Long id);
+
+    @GetMapping("rezervacija/sala/{id}")
+    Sala findHallById(@PathVariable Long id);
+
 }

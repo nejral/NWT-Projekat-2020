@@ -8,6 +8,7 @@ import com.example.hotel.rest.*;
 import com.example.hotel.validation.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 
 import javax.validation.*;
@@ -25,19 +26,27 @@ public class KorisnikService {
 
     @Autowired
     KorisnikRepository korisnikRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public String create(final KorisnikRequest korisnikRequest) throws ConstraintViolationException{
         //requestValidation.validateCreateRequest(korisnikRequest);
         KorisnikEntity korisnikEntity=new KorisnikEntity();
         BeanUtils.copyProperties(korisnikRequest,korisnikEntity);
-        //korisnikEntity.setEmployeeInd(false);
+        korisnikEntity.setPassword(passwordEncoder.encode(korisnikRequest.getPassword()));
+        korisnikEntity.setProvider(AuthProvider.local);
         korisnikRepository.save(korisnikEntity);
         return "User successfully created";
     }
     public List<Korisnik> findAll(){
         List<KorisnikEntity> korisnici=korisnikRepository.findAll();
         List<Korisnik> responses=new ArrayList<Korisnik>();
-        BeanUtils.copyProperties(korisnici,responses);
+        for(KorisnikEntity korisnikEntity:korisnici) {
+            Korisnik korisnik = new Korisnik();
+
+            BeanUtils.copyProperties(korisnikEntity, korisnik);
+            responses.add(korisnik);
+        }
         return responses;
     }
     public Korisnik findById(Long id){

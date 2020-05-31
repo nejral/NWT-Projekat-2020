@@ -149,4 +149,68 @@ public class KorisnikController {
     String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
         return rezervacijaClient.update(id,rezervacija);
     }
+
+    @DeleteMapping("/rezervacija/soba/{id}")
+    String deleteSoba(@PathVariable Long id){
+        return rezervacijaClient.deleteSoba(id);
+    }
+
+    @PutMapping("/rezervacija/soba/{id}")
+    String update(@PathVariable Long id, @RequestBody Soba soba){
+        return rezervacijaClient.update(id,soba);
+    }
+
+    @GetMapping("/rezervacija/soba/all")
+    List<SobaEntity> allRooms(){
+        return rezervacijaClient.all();
+    }
+
+    @PostMapping("/rezervacija/soba")
+    public String create(@RequestBody Soba soba){
+        return rezervacijaClient.create(soba);
+    }
+    @GetMapping("/rezervacija/soba/{id}")
+    Soba findRoomById(@PathVariable Long id) {
+        return rezervacijaClient.findRoomById(id);
+    }
+    @DeleteMapping("/racun/delete/{id}")
+    String deleteRacun(@PathVariable Long id){
+        return racunClient.deleteRacun(id);
+    }
+
+
+
+    @GetMapping("/racun/{id}")
+    Racun findByIdRacun(@PathVariable Long id){
+        return racunClient.findById(id);
+    }
+
+    @PutMapping("/racun/update/{id}")
+    String update(@Valid  @RequestBody RacunRequest racun,@PathVariable Long id){
+        return racunClient.update(racun,id);
+    }
+    @PostMapping("/rezervacija/sala")
+    public String create(@RequestBody Sala sala){
+        return rezervacijaClient.create(sala);
+    }
+
+    @GetMapping("/rezervacija/sala/all")
+    List<SalaEntity> allHalls(){
+        return rezervacijaClient.allHalls();
+    }
+
+    @PutMapping("/rezervacija/sala/{id}")
+    String update(@PathVariable Long id, @RequestBody Sala sala){
+        return rezervacijaClient.update(id, sala);
+    }
+
+    @DeleteMapping("/rezervacija/sala/{id}")
+    String deleteSala(@PathVariable Long id){
+        return rezervacijaClient.deleteSala(id);
+    }
+
+    @GetMapping("/rezervacija/sala/{id}")
+    Sala findHallById(@PathVariable Long id){
+        return rezervacijaClient.findHallById(id);
+    }
 }

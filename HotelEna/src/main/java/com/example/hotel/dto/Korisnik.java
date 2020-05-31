@@ -18,6 +18,8 @@ public class Korisnik implements Serializable {
     @NotNull
     private String password;
     private Boolean employeeInd;
+    private String email;
+    private String role;
 
 
 
