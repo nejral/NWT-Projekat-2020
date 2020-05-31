@@ -21,7 +21,7 @@ public class SobaEntity {
     private byte[] slike;
 
     @Column
-    private int numberOfBeds;
+    private Long numberOfBeds;
 
     @Column
     private boolean busy;
@@ -42,11 +42,11 @@ public class SobaEntity {
         this.slike = slike;
     }
 
-    public int getNumberOfBeds() {
+    public Long getNumberOfBeds() {
         return numberOfBeds;
     }
 
-    public void setNumberOfBeds(int numberOfBeds) {
+    public void setNumberOfBeds(Long numberOfBeds) {
         this.numberOfBeds = numberOfBeds;
     }
 

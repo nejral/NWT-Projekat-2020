@@ -42,11 +42,11 @@ rezervacijaEntity.setRacunId(Long.valueOf(1));
         rezervacijaRepozitorij.save(rezervacijaEntity);
         SobaEntity soba= new SobaEntity();
         soba.setBusy(true);
-        soba.setNumberOfBeds(3);
+        soba.setNumberOfBeds(Long.valueOf(3));
         sobaRepozitorij.save(soba);
         SalaEntity sala=new SalaEntity();
-        sala.setNumberOfPeople(4);
-        sala.setUserId(Long.valueOf(1));
+        sala.setNumberOfPeople(Long.valueOf(4));
+       // sala.setUserId(Long.valueOf(1));
         salaRepozitorij.save(sala);
     }
 

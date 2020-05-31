@@ -139,9 +139,11 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         } else {
             RezervacijaEntity rezervacijaEntity1=rezervacijaEntity.get();
             Long Id=rezervacijaEntity1.getId();
+            LocalDate created=rezervacijaEntity1.getCreated();
             BeanUtils.copyProperties(rezervacija, rezervacijaEntity1);
             rezervacijaEntity1.setId(Id);
-            rezervacijaRepository.save(rezervacijaEntity.get());
+            rezervacijaEntity1.setCreated(created);
+            rezervacijaRepository.save(rezervacijaEntity1);
             return "Updated successfully!";
         }
 

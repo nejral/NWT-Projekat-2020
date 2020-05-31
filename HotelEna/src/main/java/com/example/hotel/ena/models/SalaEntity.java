@@ -20,10 +20,10 @@ public class SalaEntity {
 
 
     @Column
-    private int numberOfPeople;
+    private Long numberOfPeople;
 
     @Column
-    private Long userId;
+    private Boolean busy;
 
     public SalaEntity(){}
 
@@ -37,20 +37,17 @@ public class SalaEntity {
         this.id = id;
     }
 
-    public int getNumberOfPeople() {
+    public Long getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    public void setNumberOfPeople(int numberOfPeople) {
+    public void setNumberOfPeople(Long numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public Boolean getBusy(){ return this.busy;}
+    public void setBusy(Boolean busy){
+        this.busy=busy;
     }
 
 }
