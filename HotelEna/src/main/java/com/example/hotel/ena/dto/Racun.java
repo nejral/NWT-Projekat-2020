@@ -4,10 +4,11 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.*;
 import java.util.Date;
 
 @Data
-public class Racun {
+public class Racun implements Serializable{
 
 
 
@@ -21,13 +22,13 @@ public class Racun {
     @NotNull
     private Long createdBy;
 
-    private Date created;
+    private LocalDateTime created;
     @NotNull
     private double cost;
 
     public Racun() {}
 
-    public Racun(double cost, Long id, Boolean paid,Long reservationId,Long createdBy,Date created,Long userId) {
+    public Racun(double cost, Long id, Boolean paid,Long reservationId,Long createdBy,LocalDateTime created,Long userId) {
         this.cost = cost;
         this.id = id;
         this.paid=paid;

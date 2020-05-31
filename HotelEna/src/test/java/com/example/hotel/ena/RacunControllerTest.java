@@ -68,7 +68,7 @@ public class RacunControllerTest extends HotelEnaApplicationTests {
             Date date = formatter.parse(dateInString);
             racun.setCreated(date);*/
 
-            racun.setCreated(new Date(System.currentTimeMillis()));
+           // racun.setCreated(new Date(System.currentTimeMillis()));
 
             //racun.setCreated(Date.valueOf("2020-04-03"));
             racun.setCreatedBy(1L);

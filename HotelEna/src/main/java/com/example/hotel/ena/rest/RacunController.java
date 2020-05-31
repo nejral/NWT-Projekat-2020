@@ -59,8 +59,8 @@ public class RacunController {
 
     @ApiOperation(value = "Update Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PutMapping("/update/{id}")
-    String update(@Valid  @RequestBody Racun racun) {
-        return racunService.updateRacun( racun);
+    String update(@Valid  @RequestBody RacunRequest racun, @PathVariable Long id) {
+        return racunService.updateRacun( racun, id);
     }
 
     @ApiOperation(value = "Delete Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -78,7 +78,7 @@ public class RacunController {
     @ApiOperation(value = "Get All Bills by createdBy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping("/{createdBy}/zaposlenik")
     List<RacunEntity> getAllCreatedBy(@PathVariable Long createdBy) {
-        requestValidation.validateCreatedBy(createdBy);
+        //requestValidation.validateCreatedBy(createdBy);
         return racunService.findByCreatedBy(createdBy);
     }
 
@@ -90,7 +90,7 @@ public class RacunController {
 
     // Single item
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     RacunEntity findByUserId(@PathVariable long userId) {
         RacunEntity racunEntity=new RacunEntity();
         return racunRepository.findByUserId(userId);

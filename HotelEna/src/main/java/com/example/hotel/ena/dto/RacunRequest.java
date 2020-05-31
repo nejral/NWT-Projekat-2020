@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.transaction.Transactional;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.*;
 import java.util.Date;
 
 @Data
@@ -21,7 +22,7 @@ public class RacunRequest implements Serializable {
     //@Size(min=5, max=10)
     private Long createdBy;
     //@NotNull(message = "Created is mandatory")
-    private Date created;
+    private LocalDateTime created;
     @NotNull(message = "userId is mandatory")
     private Long userId;
 

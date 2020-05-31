@@ -40,7 +40,7 @@ public class RacunService {
             RacunEntity racunEntity= new RacunEntity();
             BeanUtils.copyProperties(racunRequest,racunEntity);
 
-            racunEntity.setPaid(false);
+            //racunEntity.setPaid(false);
             racunEntity.setCreated(LocalDateTime.now());
            // System.out.println(racunEntity);
             racunRepository.save(racunEntity);
@@ -90,16 +90,22 @@ public class RacunService {
     }
 
     public List<RacunEntity> findByCreatedBy(Long createdBy){
-        requestValidation.validateCreatedBy(createdBy);
+      //  requestValidation.validateCreatedBy(createdBy);
 
         return racunRepository.findByCreatedBy(createdBy);
 
     }
 
 //moyda treba request
-    public String updateRacun( Racun racunRequest){
+    public String updateRacun( RacunRequest racunRequest, Long id){
         try {
-            requestValidation.validateId(racunRequest.getId());
+            //requestValidation.validateId(racunRequest.getId());
+            RacunEntity racunEntity=racunRepository.findById(id).get();
+            LocalDateTime created=racunEntity.getCreated();
+            BeanUtils.copyProperties(racunRequest,racunEntity);
+            racunEntity.setId(id);
+            racunEntity.setCreated(created);
+            racunRepository.save(racunEntity);
             //racunMapper.updateEntity(racunRequest,racunRepository.findById(racunRequest.getId()).get());
 
         }
