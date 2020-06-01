@@ -35,25 +35,15 @@ public class RacunService {
 
     public String create(final RacunRequest racunRequest) throws ConstraintViolationException {
 
-        try {
+
             requestValidation.validateCreateRequest(racunRequest);
             RacunEntity racunEntity= new RacunEntity();
             BeanUtils.copyProperties(racunRequest,racunEntity);
 
-            //racunEntity.setPaid(false);
             racunEntity.setCreated(LocalDateTime.now());
-           // System.out.println(racunEntity);
-            racunRepository.save(racunEntity);
+            RacunEntity racunEntity1=racunRepository.save(racunEntity);
+        return "Successfully created!";
 
-        }
-        catch(NullPointerException e) {
-            // probably don't bother doing clean up
-        }catch(BaseException f){
-            return f.getMessage();
-        }
-
-
-        return "Bill created successfully";
 
 
     }
@@ -118,10 +108,14 @@ public class RacunService {
         return "Updated successfully!";
     }
 
-    public Racun findByUserId(@PathVariable long userId) {
+    public List<Racun> findByUserId(@PathVariable Long userId) {
+        List<Racun> racuni=new ArrayList<Racun>();
         Racun racun=new Racun();
-        BeanUtils.copyProperties(racunRepository.findByUserId(userId),racun);
-        return racun;
+        if(racunRepository.findByUserId(userId)!=null) {
+            BeanUtils.copyProperties(racunRepository.findByUserId(userId), racun);
+            racuni.add(racun);
+        }
+        return racuni;
     }
     public Racun reservationCreateRacun(@PathVariable Long reservationId) {
 

@@ -32,7 +32,7 @@ public class DodavanjeKorisnika {
 
         RacunEntity racun = new RacunEntity();
        racun.setPaid(false);
-       racun.setCost(120);
+       //racun.setCost(120);
        racun.setUserId(Long.valueOf(1));
        racun.setReservationId(Long.valueOf(1));
        racun.setCreatedBy(Long.valueOf(1));

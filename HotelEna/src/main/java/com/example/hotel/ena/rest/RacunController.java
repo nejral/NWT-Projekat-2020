@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 @RestController
 
-@RequestMapping("/racun")
+@RequestMapping("/bill")
 
 public class RacunController {
 @Autowired
@@ -58,25 +59,25 @@ public class RacunController {
     }
 
     @ApiOperation(value = "Update Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     String update(@Valid  @RequestBody RacunRequest racun, @PathVariable Long id) {
         return racunService.updateRacun( racun, id);
     }
 
     @ApiOperation(value = "Delete Bill By Id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     String deleteRacun(@PathVariable Long id) {
         return racunService.deleteById(id);
     }
 
     @ApiOperation(value = "Get All Bills made By User with Id ", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/{userId}/bill")
-    Racun findByUserId(@PathVariable Long userId) {
+    @GetMapping("/guest/{userId}")
+    List<Racun> findByUserId(@PathVariable Long userId) {
         return racunService.findByUserId(userId);
     }
 
     @ApiOperation(value = "Get All Bills by createdBy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping("/{createdBy}/zaposlenik")
+    @GetMapping("/employee/{createdBy}")
     List<RacunEntity> getAllCreatedBy(@PathVariable Long createdBy) {
         //requestValidation.validateCreatedBy(createdBy);
         return racunService.findByCreatedBy(createdBy);
@@ -110,44 +111,22 @@ public class RacunController {
     }
 
 
-    @GetMapping("/racun")
-    public List<RacunEntity> findRacun() {
-        return racunRepository.findAll();
-    }
+
     @GetMapping("/not-paid")
     public List<RacunPaidResponse> getAllNotPaid(){
         return racunService.getAllNotPaid();
     }
 
 
-   /*@PostMapping()
-   String newRacun(@RequestBody RacunEntity noviRacun) {
-            if(requestValidation.validateIznos(noviRacun.getCost())==null) {
-//                KorisnikEntity korisnikEntity = new KorisnikEntity();
-//                BeanUtils.copyProperties(korisnik, korisnikEntity);
-//                korisnikRepository.save(korisnikEntity);
-//                return "Successfully created!";
-                racunRepository.save(noviRacun);
-                return "Racun created successfully";
-            }
-            else {
-                return requestValidation.validateIznos(noviRacun.getCost());
-            }
-        }*/
 
-        //nista ne radi
-  /* @PostMapping("/reservation")
+   @PostMapping("/reservation/create/bill")
    String newRacunReservation(@RequestBody RacunReservationRequest noviRacun) {
             RacunEntity racunEntity=new RacunEntity();
              BeanUtils.copyProperties(noviRacun,racunEntity);
+             racunEntity.setCreated(LocalDateTime.now());
             racunRepository.save(racunEntity);
             return "Racun created successfully";
-    }*/
-
-
-
-
-
+    }
 
 
     }

@@ -19,7 +19,7 @@ RabbitTemplate rabbitTemplate;
         log.info("HandleMessage!!!");
 
             try {
-                RacunEntity racunEntity = racunRepository.findById(messageBody).get();
+                RacunEntity racunEntity = racunRepository.findByReservationId(messageBody);
                 log.info(racunEntity.toString());
                 racunEntity.setPaid(true);
                 racunRepository.save(racunEntity);
@@ -33,8 +33,9 @@ RabbitTemplate rabbitTemplate;
         log.info("Handle Fail Message!!!");
         log.info(failMessage);
         log.info(failMessage.substring(7));
-        RacunEntity racunEntity=racunRepository.findById(Long.valueOf(failMessage.substring(7))).get();
+        RacunEntity racunEntity=racunRepository.findByReservationId(Long.valueOf(failMessage.substring(7)));
         racunEntity.setPaid(false);
         racunRepository.save(racunEntity);
+        return;
     }
 }
