@@ -3,7 +3,7 @@ package com.example.hotel;
 
 
 
-import com.example.hotel.db.*;
+import com.example.hotel.repository.*;
 import com.system.systemevents.*;
 import io.grpc.*;
 import io.grpc.stub.*;
@@ -55,7 +55,7 @@ public class EventsServiceImpl extends EventsServiceGrpc.EventsServiceImplBase {
                 .setEventResponseText("OkiDoki")
                 .build();
 
-        com.example.hotel.db.entity.EventRequest dbEntity = new com.example.hotel.db.entity.EventRequest(
+        com.example.hotel.models.EventRequest dbEntity = new com.example.hotel.models.EventRequest(
                 null,
                 Timestamp.from(Instant.ofEpochSecond(request.getActionTimestamp().getSeconds())),
                 request.getServiceName(),

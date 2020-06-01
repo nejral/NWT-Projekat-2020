@@ -1,7 +1,6 @@
 package com.example.hotel.security;
 
 
-import com.example.hotel.dto.*;
 import com.example.hotel.exception.*;
 import com.example.hotel.models.*;
 import com.example.hotel.repository.*;
@@ -15,13 +14,13 @@ import org.springframework.transaction.annotation.*;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    KorisnikRepository userRepository;
+    UserRepository userRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        KorisnikEntity user = userRepository.findByEmail(email)
+        UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with email : " + email)
         );
@@ -31,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional
     public UserDetails loadUserById(Long id) {
-        KorisnikEntity user = userRepository.findById(id).orElseThrow(
+        UserEntity user = userRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("User", "id", id)
         );
 

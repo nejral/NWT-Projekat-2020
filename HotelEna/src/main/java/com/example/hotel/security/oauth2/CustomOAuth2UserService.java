@@ -21,7 +21,7 @@ import java.util.*;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private KorisnikRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -43,8 +43,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        Optional<KorisnikEntity> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-        KorisnikEntity user;
+        Optional<UserEntity> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        UserEntity user;
         if(userOptional.isPresent()) {
             user = userOptional.get();
             if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
@@ -60,18 +60,19 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return UserPrincipal.create(user, oAuth2User.getAttributes());
     }
 
-    private KorisnikEntity registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        KorisnikEntity user = new KorisnikEntity();
+    private UserEntity registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+        UserEntity user = new UserEntity();
 
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         //user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
+        user.setRole("USER");
        // user.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(user);
     }
 
-    private KorisnikEntity updateExistingUser(KorisnikEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
+    private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setName(oAuth2UserInfo.getName());
         //existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);

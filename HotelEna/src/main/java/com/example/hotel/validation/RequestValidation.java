@@ -2,7 +2,6 @@ package com.example.hotel.validation;
 
 import com.example.hotel.dto.*;
 import com.example.hotel.exception.*;
-import com.example.hotel.models.*;
 import com.example.hotel.repository.*;
 import lombok.*;
 import org.springframework.http.*;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.*;
 @Component
 public class RequestValidation {
 
-    KorisnikRepository korisnikRepository;
+    UserRepository korisnikRepository;
 
   /* public void validateCreateRequest(KorisnikRequest korisnikRequest) {
 if(korisnikRepository.existsByUsername(korisnikRequest.getUsername())) {
@@ -37,7 +36,7 @@ else
     }*/
     public void validateId(Long id) {
         if (!korisnikRepository.existsById(id)) {
-            throw new EntityNotFoundException(Korisnik.class, "id", id.toString());
+            throw new EntityNotFoundException(User.class, "id", id.toString());
         }
     }
     public void validateEmployee(Long id){

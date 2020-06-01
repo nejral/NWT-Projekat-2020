@@ -22,7 +22,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrincipal create(KorisnikEntity user) {
+    public static UserPrincipal create(UserEntity user) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -34,7 +34,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         );
     }
 
-    public static UserPrincipal create(KorisnikEntity user, Map<String, Object> attributes) {
+    public static UserPrincipal create(UserEntity user, Map<String, Object> attributes) {
         UserPrincipal userPrincipal = UserPrincipal.create(user);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;

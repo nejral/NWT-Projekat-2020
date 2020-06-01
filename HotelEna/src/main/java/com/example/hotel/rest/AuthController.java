@@ -6,13 +6,10 @@ import com.example.hotel.exception.ApiResponse;
 import com.example.hotel.models.*;
 import com.example.hotel.repository.*;
 import com.example.hotel.security.*;
-import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
-import org.springframework.security.core.context.*;
-import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.*;
@@ -28,7 +25,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private KorisnikRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -58,17 +55,16 @@ public class AuthController {
         }
 
         // Creating user's account for guest
-        KorisnikEntity user = new KorisnikEntity();
+        UserEntity user = new UserEntity();
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
         user.setSurname(signUpRequest.getSurname());
 user.setRole("USER");
-//user.setEmployeeInd(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        KorisnikEntity result = userRepository.save(user);
+        UserEntity result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")
