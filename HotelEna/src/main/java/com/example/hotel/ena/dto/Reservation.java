@@ -10,7 +10,7 @@ import java.time.*;
 import java.util.Date;
 
 @Data
-public class Rezervacija implements Serializable {
+public class Reservation implements Serializable {
     private Long id;
     @NotNull
     private Long userId;
@@ -25,33 +25,31 @@ public class Rezervacija implements Serializable {
     @NotNull
     private Boolean done;
     @NotNull
-    private Long racunId;
+    private Long roomId;
     @NotNull
-    private Long salaentityId;
-    @NotNull
-    private Long sobaentityId;
+    private Long hallId;
 
 
-    public Rezervacija(Long userId, Long createdBy, LocalDate created, LocalDate validFrom, LocalDate validTo) {
+    public Reservation(Long userId, Long createdBy, LocalDate created, LocalDate validFrom, LocalDate validTo) {
         this.userId = userId;
         this.createdBy = createdBy;
         this.created = created;
         this.validFrom = validFrom;
         this.validTo = validTo;
     }
-public Long getSalaentityId(){
-        return this.salaentityId;
+public Long getHallId(){
+        return this.hallId;
 }
-public void setSalaentityId(Long salaentityId){
-        this.salaentityId=salaentityId;
+public void setHallId(Long hallId){
+        this.hallId=hallId;
 }
-public Long getSobaentityId(Long sobaentityId){
-        return this.sobaentityId;
+public Long getRoomId(Long roomId){
+        return this.roomId;
 }
-public void setSobaentityId(Long sobaentityId){
-        this.sobaentityId=sobaentityId;
+public void setRoomId(Long roomId){
+        this.roomId=roomId;
 }
-    public Rezervacija(){ }
+    public Reservation(){ }
 public Long getId(){ return id;}
 public void setId(Long id){ this.id=id;}
 public Long getUserId() {

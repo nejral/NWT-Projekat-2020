@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 @Data
-public class Korisnik implements Serializable {
+public class User implements Serializable {
     @NotNull
     private String username;
     @NotNull
@@ -15,14 +15,14 @@ public class Korisnik implements Serializable {
     private String surname;
     @NotNull
     private String password;
-    public Korisnik(String username, String password, String name, String surname) {
+    public User(String username, String password, String name, String surname) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
     }
 
-public Korisnik(){
+public User(){
 
 }
 

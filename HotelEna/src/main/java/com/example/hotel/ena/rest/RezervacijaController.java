@@ -1,19 +1,17 @@
 package com.example.hotel.ena.rest;
 
-import com.example.hotel.ena.dto.Racun;
-import com.example.hotel.ena.models.RezervacijaEntity;
-import com.example.hotel.ena.dto.Rezervacija;
+import com.example.hotel.ena.dto.*;
+import com.example.hotel.ena.models.ReservationEntity;
 import com.example.hotel.ena.repository.RezervacijaRepository;
 import com.example.hotel.ena.service.RezervacijaService;
 import com.example.hotel.ena.validation.RequestValidation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.sql.Date;
 import java.time.*;
-import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,24 +21,33 @@ import java.util.Optional;
 
 
 @AllArgsConstructor
+@Slf4j
 @RestController
-@RequestMapping("/rezervacija")
+@RequestMapping("/reservation")
 class RezervacijaController {
     private RezervacijaRepository rezervacijaRepository;
     private RequestValidation requestValidation;
     private RezervacijaService rezervacijaService;
+    private RacunClient racunClient;
 
     @PostMapping()
-    public String create(@RequestBody Rezervacija rezervacija) {
+    public String create(@RequestBody ReservationCreateRequest rezervacija) {
 
-       
+       requestValidation.validateRezervacijaCreateRequest(rezervacija);
 
         if (requestValidation.validateUserId(rezervacija.getUserId()) == null) {
 
-            RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
-            BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
-            rezervacijaEntity.setCreated(LocalDateTime.now().toLocalDate());
-            rezervacijaRepository.save(rezervacijaEntity);
+            ReservationEntity reservationEntity = new ReservationEntity();
+            BeanUtils.copyProperties(rezervacija, reservationEntity);
+            reservationEntity.setCreated(LocalDateTime.now().toLocalDate());
+            ReservationEntity reservationEntity1 =rezervacijaRepository.save(reservationEntity);
+            BillReservationRequest billReservationRequest =new BillReservationRequest();
+            billReservationRequest.setCost(rezervacija.getCost());
+            billReservationRequest.setReservationId(reservationEntity1.getId());
+            billReservationRequest.setUserId(rezervacija.getUserId());
+            billReservationRequest.setCreatedBy(rezervacija.getCreatedBy());
+            racunClient.newRacunReservation(billReservationRequest);
+
             return "Successfully created!";
         }
 
@@ -50,31 +57,31 @@ class RezervacijaController {
     }
 
     @PostMapping("/createByUserId/{id}")
-    public String createByUserId(@RequestBody Rezervacija rezervacija, @PathVariable Long id) {
+    public String createByUserId(@RequestBody Reservation reservation, @PathVariable Long id) {
         if (requestValidation.validateUserId(id) == null) {
-            RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
-            BeanUtils.copyProperties(rezervacija, rezervacijaEntity);
-            rezervacijaEntity.setUserId(id);
-            rezervacijaRepository.save(rezervacijaEntity);
+            ReservationEntity reservationEntity = new ReservationEntity();
+            BeanUtils.copyProperties(reservation, reservationEntity);
+            reservationEntity.setUserId(id);
+            rezervacijaRepository.save(reservationEntity);
             return "Successfully created!";
         }
-        return requestValidation.validateUserId(rezervacija.getUserId());
+        return requestValidation.validateUserId(reservation.getUserId());
     }
 
     @GetMapping("/all")
-    List<RezervacijaEntity> all() {
+    List<ReservationEntity> all() {
         return rezervacijaRepository.findAll();
     }
 
     @GetMapping("/allByUserId/{id}")
 
-    List<Rezervacija> allByUserId(@PathVariable Long id) {
-        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
-        List<Rezervacija> pomRezervacije = new ArrayList<>();
+    List<Reservation> allByUserId(@PathVariable Long id) {
+        List<ReservationEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Reservation> pomRezervacije = new ArrayList<>();
 
-        for (RezervacijaEntity rez : rezervacije){
+        for (ReservationEntity rez : rezervacije){
             if (rez.getUserId() == id) {
-                Rezervacija pomRez = new Rezervacija();
+                Reservation pomRez = new Reservation();
                 BeanUtils.copyProperties(rez, pomRez);
                 pomRezervacije.add(pomRez);
             }
@@ -84,14 +91,14 @@ class RezervacijaController {
     }
 
     @GetMapping("/allByCreatedBy/{id}")
-    List<Rezervacija> allByCreatedBy(@PathVariable Long id) {
+    List<Reservation> allByCreatedBy(@PathVariable Long id) {
 
-        List<RezervacijaEntity> lista =rezervacijaRepository.findByCreatedBy(id);
-        List<Rezervacija> rezervacije=new ArrayList<Rezervacija>();
-for(RezervacijaEntity rezervacijaEntity:lista){
-    Rezervacija rezervacija=new Rezervacija();
-    BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
-    rezervacije.add(rezervacija);
+        List<ReservationEntity> lista =rezervacijaRepository.findByCreatedBy(id);
+        List<Reservation> rezervacije=new ArrayList<Reservation>();
+for(ReservationEntity reservationEntity :lista){
+    Reservation reservation =new Reservation();
+    BeanUtils.copyProperties(reservationEntity, reservation);
+    rezervacije.add(reservation);
 }
         return rezervacije;
             }
@@ -103,13 +110,13 @@ for(RezervacijaEntity rezervacijaEntity:lista){
 
 
     @GetMapping("/checkExpired")
-    List<Rezervacija> checkExpired() {
-        List<RezervacijaEntity> rezervacije = rezervacijaRepository.findAll();
-        List<Rezervacija> pomRezervacije = new ArrayList<>();
+    List<Reservation> checkExpired() {
+        List<ReservationEntity> rezervacije = rezervacijaRepository.findAll();
+        List<Reservation> pomRezervacije = new ArrayList<>();
 
-        for (RezervacijaEntity rez : rezervacije){
+        for (ReservationEntity rez : rezervacije){
           //  if (rez.getValidTo().compareTo(new Date(System.currentTimeMillis())) <= 0) {
-                Rezervacija pomRez = new Rezervacija();
+                Reservation pomRez = new Reservation();
                 BeanUtils.copyProperties(rez, pomRez);
                 pomRezervacije.add(pomRez);
             }
@@ -121,29 +128,29 @@ for(RezervacijaEntity rezervacijaEntity:lista){
         return rezervacijaService.findByReservationId(reservationId);
     }*/
     @GetMapping("/{reservationId}")
-    Racun reservationRacun(@PathVariable Long reservationId) {
+    Bill reservationRacun(@PathVariable Long reservationId) {
         return rezervacijaService.reservationRacun(reservationId);
     }
 
     @PostMapping("/reservation/{reservationId}")
-    Racun reservationCreateRacun(@PathVariable Long reservationId) {
+    Bill reservationCreateRacun(@PathVariable Long reservationId) {
         return rezervacijaService.reservationCreateRacun(reservationId);
     }
 
     @PutMapping("/{id}")
-    String update(@PathVariable Long id, @RequestBody Rezervacija rezervacija) {
-        Optional<RezervacijaEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
+    String update(@PathVariable Long id, @RequestBody Reservation reservation) {
+        Optional<ReservationEntity> rezervacijaEntity = rezervacijaRepository.findById(id);
 
         if (rezervacijaEntity == null) {
             return "Rezervacija with id does not exist!";
         } else {
-            RezervacijaEntity rezervacijaEntity1=rezervacijaEntity.get();
-            Long Id=rezervacijaEntity1.getId();
-            LocalDate created=rezervacijaEntity1.getCreated();
-            BeanUtils.copyProperties(rezervacija, rezervacijaEntity1);
-            rezervacijaEntity1.setId(Id);
-            rezervacijaEntity1.setCreated(created);
-            rezervacijaRepository.save(rezervacijaEntity1);
+            ReservationEntity reservationEntity1 =rezervacijaEntity.get();
+            Long Id= reservationEntity1.getId();
+            LocalDate created= reservationEntity1.getCreated();
+            BeanUtils.copyProperties(reservation, reservationEntity1);
+            reservationEntity1.setId(Id);
+            reservationEntity1.setCreated(created);
+            rezervacijaRepository.save(reservationEntity1);
             return "Updated successfully!";
         }
 
@@ -152,18 +159,18 @@ for(RezervacijaEntity rezervacijaEntity:lista){
 
 
     @DeleteMapping("/{id}")
-    String deleteRezervacija(@PathVariable Long id) {
+    String delete(@PathVariable Long id) {
         if(requestValidation.validateId(id) != null)
             return requestValidation.validateId(id);
         rezervacijaRepository.deleteById(id);
         return "Rezervacija is deleted successfully";
     }
 @GetMapping("/find/{id}")
-    Rezervacija findById(@PathVariable Long id){
-       RezervacijaEntity rezervacijaEntity= rezervacijaRepository.findById(id).get();
-       Rezervacija rezervacija=new Rezervacija();
-    BeanUtils.copyProperties(rezervacijaEntity,rezervacija);
-    return rezervacija;
+Reservation findById(@PathVariable Long id){
+       ReservationEntity reservationEntity = rezervacijaRepository.findById(id).get();
+       Reservation reservation =new Reservation();
+    BeanUtils.copyProperties(reservationEntity, reservation);
+    return reservation;
 }
 
 }

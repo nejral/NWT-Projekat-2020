@@ -7,7 +7,7 @@ import java.sql.Blob;
 
 @Entity
 @Table(name = "sobaentity")
-public class SobaEntity {
+public class RoomEntity {
 
     @javax.persistence.Id
     @Id
@@ -58,6 +58,6 @@ public class SobaEntity {
         this.busy = busy;
     }
 
-    public SobaEntity() {
+    public RoomEntity() {
     }
 }

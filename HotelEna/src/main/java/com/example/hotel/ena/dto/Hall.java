@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.io.*;
 @Data
-public class Sala implements Serializable {
+public class Hall implements Serializable {
     private Long id;
     private Long numberOfPeople;
     private Boolean busy;

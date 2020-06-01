@@ -5,43 +5,41 @@ import com.example.hotel.ena.models.*;
 import com.example.hotel.ena.repository.*;
 import lombok.*;
 import org.springframework.beans.*;
-import org.springframework.context.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.*;
 import java.util.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rezervacija/soba")
+@RequestMapping("/reservation/room")
 public class SobaController {
 SobaRepository sobaRepository;
     @PostMapping()
-    public String create(@RequestBody Soba soba) {
+    public String create(@RequestBody Room room) {
 
-            SobaEntity sobaEntity = new SobaEntity();
-            BeanUtils.copyProperties(soba, sobaEntity);
-            sobaEntity.setNumberOfBeds(soba.getNumOfBeds());
-            sobaRepository.save(sobaEntity);
+            RoomEntity roomEntity = new RoomEntity();
+            BeanUtils.copyProperties(room, roomEntity);
+            roomEntity.setNumberOfBeds(room.getNumOfBeds());
+            sobaRepository.save(roomEntity);
             return "Successfully created!";
         }
 
 
     @GetMapping("/all")
-    List<SobaEntity> all() {
+    List<RoomEntity> all() {
         return sobaRepository.findAll();
     }
     @PutMapping("/{id}")
-    String update(@PathVariable Long id, @RequestBody Soba soba) {
-        Optional<SobaEntity> sobaEntity = sobaRepository.findById(id);
+    String update(@PathVariable Long id, @RequestBody Room room) {
+        Optional<RoomEntity> sobaEntity = sobaRepository.findById(id);
 
         if (sobaEntity == null) {
-            return "Rezervacija with id does not exist!";
+            return "Reservation with id does not exist!";
         } else {
-            SobaEntity rezervacijaEntity1=sobaEntity.get();
+            RoomEntity rezervacijaEntity1=sobaEntity.get();
             Long Id=rezervacijaEntity1.getId();
-            BeanUtils.copyProperties(soba ,rezervacijaEntity1);
-            rezervacijaEntity1.setNumberOfBeds(soba.getNumOfBeds());
+            BeanUtils.copyProperties(room,rezervacijaEntity1);
+            rezervacijaEntity1.setNumberOfBeds(room.getNumOfBeds());
             rezervacijaEntity1.setId(Id);
             sobaRepository.save(rezervacijaEntity1);
             return "Updated successfully!";
@@ -53,14 +51,14 @@ SobaRepository sobaRepository;
        // if(requestValidation.validateId(id) != null)
            // return requestValidation.validateId(id);
         sobaRepository.deleteById(id);
-        return "Soba is deleted successfully";
+        return "Room is deleted successfully";
     }
     @GetMapping("/{id}")
-    Soba findRoomById(@PathVariable Long id) {
-        SobaEntity sobaEntity= sobaRepository.findById(id).get();
-        Soba soba=new Soba();
-        BeanUtils.copyProperties(sobaEntity,soba);
-        soba.setNumOfBeds(sobaEntity.getNumberOfBeds());
-        return soba;
+    Room findRoomById(@PathVariable Long id) {
+        RoomEntity roomEntity = sobaRepository.findById(id).get();
+        Room room =new Room();
+        BeanUtils.copyProperties(roomEntity, room);
+        room.setNumOfBeds(roomEntity.getNumberOfBeds());
+        return room;
     }
 }

@@ -3,7 +3,7 @@ package com.example.hotel.ena.dto;
 import lombok.*;
 
 @Data
-public class Soba {
+public class Room {
     private Long numOfBeds;
     private Boolean busy;
 }

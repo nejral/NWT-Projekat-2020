@@ -11,12 +11,12 @@ import java.util.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rezervacija/sala")
+@RequestMapping("/reservation/hall")
 public class SalaController {
 
     SalaRepository salaRepository;
     @PostMapping()
-    public String create(@RequestBody Sala sala) {
+    public String create(@RequestBody Hall sala) {
 
         SalaEntity sobaEntity = new SalaEntity();
         BeanUtils.copyProperties(sala, sobaEntity);
@@ -31,7 +31,7 @@ public class SalaController {
         return salaRepository.findAll();
     }
     @PutMapping("/{id}")
-    String update(@PathVariable Long id, @RequestBody Sala sala) {
+    String update(@PathVariable Long id, @RequestBody Hall sala) {
         Optional<SalaEntity> sobaEntity = salaRepository.findById(id);
 
         if (sobaEntity == null) {
@@ -55,9 +55,9 @@ public class SalaController {
         return "Sala is deleted successfully";
     }
     @GetMapping("/{id}")
-    Sala findHallById(@PathVariable Long id) {
+    Hall findHallById(@PathVariable Long id) {
         SalaEntity sobaEntity= salaRepository.findById(id).get();
-        Sala soba=new Sala();
+        Hall soba=new Hall();
         BeanUtils.copyProperties(sobaEntity,soba);
         //soba.setNumOfBeds(sobaEntity.getNumberOfBeds());
         return soba;

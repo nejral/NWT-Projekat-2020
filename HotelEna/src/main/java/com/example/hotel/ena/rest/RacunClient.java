@@ -1,37 +1,21 @@
 package com.example.hotel.ena.rest;
 
-import com.example.hotel.ena.dto.Racun;
-import com.example.hotel.ena.dto.RacunReservationRequest;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import com.example.hotel.ena.dto.Bill;
+import com.example.hotel.ena.dto.BillReservationRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 //@AllArgsConstructor
-@FeignClient("racun")
+@FeignClient("billing")
 public interface RacunClient {
 
-    @GetMapping("/racun/{reservationId}")
-    Racun reservationRacun(@PathVariable("reservationId") Long reservationId);
+    @GetMapping("/bill/{reservationId}")
+    Bill reservationRacun(@PathVariable("reservationId") Long reservationId);
 
-    @GetMapping("/racun/{reservationId}")
-    Racun reservationCreateRacun(@PathVariable("reservationId") Long reservationId);
+    @GetMapping("/bill/{reservationId}")
+    Bill reservationCreateRacun(@PathVariable("reservationId") Long reservationId);
 
+    @PostMapping("/bill/reservation/create/bill")
+    String newRacunReservation(@RequestBody BillReservationRequest noviRacun);
 
-
-/*
-    @GetMapping("/racun/reservationRacun/{reservationId}")
-    Racun reservationRacun(@PathVariable Long reservationId);*/
-/*
-    @GetMapping("racun/{userId}")
-    Racun findByUserId(@PathVariable Long userId);
-
-    @PostMapping("/reservation")
-    String newRacunReservation(@RequestBody RacunReservationRequest noviRacun);
-
-    @GetMapping("/reservation/{reservationId}")
-    Racun reservationRacun(@PathVariable Long reservationId);
-*/
-    /*@GetMapping("racun/{reservationId}/racun")
-    Racun findByReservationId(@PathVariable Long reservationId);*/
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @Table(name = "rezervacijaentity")
-public class RezervacijaEntity {
+public class ReservationEntity {
     @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,29 +28,25 @@ public class RezervacijaEntity {
     @Column
     private LocalDate validTo;
 
-@Column
-private Long racunId;
+
 @Column
 private Boolean done;
-public Long getRacunId(){ return racunId;}
-
-
-public void setRacunId(Long racunId) { this.racunId=racunId;}
 
 public Boolean getDone() { return this.done;}
 public void setDone(Boolean done){
     this.done=done;
 }
 
-public Long getSalaentityId(){ return  this.salaentityId;}
-public void setSalaentityId(Long salaentityId){ this.salaentityId=salaentityId;}
-    private Long salaentityId;
+public Long getHallId(){ return  this.hallId;}
+public void setHallId(Long hallId){ this.hallId=hallId;}
+@Column
+    private Long hallId;
 
 
-
-    private Long sobaentityId;
-    public Long getSobaentityId(){ return  this.sobaentityId;}
-    public void setSobaentityId(Long sobaentityId){ this.sobaentityId=sobaentityId;}
+@Column
+    private Long roomId;
+    public Long getRoomId(){ return  this.roomId;}
+    public void setRoomId(Long roomId){ this.roomId=roomId;}
 
 
     public Long getId() {
@@ -105,7 +101,7 @@ public void setSalaentityId(Long salaentityId){ this.salaentityId=salaentityId;}
 
 
 
-    public RezervacijaEntity() {
+    public ReservationEntity() {
     }
 
 }

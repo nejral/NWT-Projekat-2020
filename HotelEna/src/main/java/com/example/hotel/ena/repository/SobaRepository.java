@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 
 @Repository
-public interface SobaRepository extends JpaRepository<SobaEntity, Long> {
+public interface SobaRepository extends JpaRepository<RoomEntity, Long> {
 }

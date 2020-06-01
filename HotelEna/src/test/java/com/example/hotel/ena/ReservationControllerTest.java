@@ -3,8 +3,8 @@ package com.example.hotel.ena;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.example.hotel.ena.dto.Rezervacija;
-import com.example.hotel.ena.models.RezervacijaEntity;
+import com.example.hotel.ena.dto.Reservation;
+import com.example.hotel.ena.models.ReservationEntity;
 import com.example.hotel.ena.repository.RezervacijaRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +14,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
-import java.sql.Date;
 import java.time.*;
-import java.util.List;
 
-public class RezervacijaControllerTest extends HotelEnaApplicationTests {
+public class ReservationControllerTest extends HotelEnaApplicationTests {
     @Autowired
     private RezervacijaRepository rezervacijaRepozitorij;
     @Override
@@ -35,23 +33,23 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
-        RezervacijaEntity[]  rezervacijalist = super.mapFromJson(content, RezervacijaEntity[].class);
+        ReservationEntity[]  rezervacijalist = super.mapFromJson(content, ReservationEntity[].class);
         assertTrue(rezervacijalist.length > 0);
     }
     @Test
     public void createRezervacija() throws Exception {
         String uri = "/rezervacija";
-        Rezervacija rezervacija = new Rezervacija();
+        Reservation reservation = new Reservation();
 
-       rezervacija.setUserId(Long.valueOf(123));
+       reservation.setUserId(Long.valueOf(123));
 
-       rezervacija.setUserId(123L);
+       reservation.setUserId(123L);
 
-       rezervacija.setCreatedBy(345L);
-       rezervacija.setCreated(LocalDateTime.now().toLocalDate());
-       rezervacija.setValidFrom(LocalDateTime.now().toLocalDate());
-        rezervacija.setValidTo(LocalDateTime.now().toLocalDate());
-        String inputJson = super.mapToJson(rezervacija);
+       reservation.setCreatedBy(345L);
+       reservation.setCreated(LocalDateTime.now().toLocalDate());
+       reservation.setValidFrom(LocalDateTime.now().toLocalDate());
+        reservation.setValidTo(LocalDateTime.now().toLocalDate());
+        String inputJson = super.mapToJson(reservation);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)).andReturn();
@@ -64,19 +62,19 @@ public class RezervacijaControllerTest extends HotelEnaApplicationTests {
     @Test
     public void createRezervacijaError() throws Exception {
         String uri = "/rezervacija";
-        Rezervacija rezervacija = new Rezervacija();
+        Reservation reservation = new Reservation();
 
-        rezervacija.setUserId(Long.valueOf(123));
-        rezervacija.setCreatedBy(456L);
+        reservation.setUserId(Long.valueOf(123));
+        reservation.setCreatedBy(456L);
 
         //rezervacija.setUserId(Long.valueOf(5));
-        rezervacija.setCreatedBy(Long.valueOf(2));
+        reservation.setCreatedBy(Long.valueOf(2));
 
-        rezervacija.setCreated(LocalDateTime.now().toLocalDate());
-        rezervacija.setValidFrom(LocalDateTime.now().toLocalDate());
-        rezervacija.setValidTo(LocalDateTime.now().toLocalDate());
+        reservation.setCreated(LocalDateTime.now().toLocalDate());
+        reservation.setValidFrom(LocalDateTime.now().toLocalDate());
+        reservation.setValidTo(LocalDateTime.now().toLocalDate());
 
-        String inputJson = super.mapToJson(rezervacija);
+        String inputJson = super.mapToJson(reservation);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(inputJson)).andReturn();

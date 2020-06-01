@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.*;
 
 @Data
-public class RezervacijaUpdateRequest implements Serializable {
+public class ReservationUpdateRequest implements Serializable {
     @NotNull
     private Long userId;
     @NotNull

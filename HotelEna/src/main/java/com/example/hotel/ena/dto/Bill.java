@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
-public class Racun implements Serializable{
+public class Bill implements Serializable{
 
     @NotNull
     private Long id;
