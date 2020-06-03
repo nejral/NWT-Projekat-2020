@@ -1,4 +1,12 @@
 # NWT-Projekat-2020
+# hotelena
+Hotelena dockerized app with a few corrections
+
+## Running the thing
+1. Build each module using `mvn clean package`
+2. Navigate to `.docker` and run `docker-compose up -d --build`
+3. Wait a few hours till it builds :P
+4. Done!
 
 Naziv teme: Hotel ENA
 
