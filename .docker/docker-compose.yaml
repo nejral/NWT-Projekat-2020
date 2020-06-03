@@ -1,0 +1,82 @@
+version: '2'
+
+services:
+
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    container_name: hotel-rmq
+    labels:
+      NAME: "rabbitmq"
+    networks:
+      - hotelena
+
+  pma:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: hitel-pma
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: root
+      PMA_HOST: mysql
+    stdin_open: true
+    tty: true
+    ports:
+      - 9595:80/tcp
+    networks:
+      - hotelena
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: hotel-mysql
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_DATABASE: hotelena
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - hotelena
+
+  eureka:
+    container_name: hotel-eureka
+    restart: on-failure
+    build: ../Eureka
+    networks:
+      - hotelena
+
+  billing:
+    container_name: hotel-billing
+    #restart: on-failure
+    build: ../BillingService
+    networks:
+      - hotelena
+    depends_on:
+      - eureka
+
+  reservation:
+    container_name: hotel-reservation
+    #restart: on-failure
+    build: ../ReservationService
+    networks:
+      - hotelena
+    depends_on:
+      - billing
+      - eureka
+
+  authentication:
+    container_name: hotel-authentication
+    #restart: on-failure
+    build: ../AuthenticationService
+    ports:
+    - "8080:8080"
+    networks:
+      - hotelena
+    depends_on:
+      - eureka
+      - reservation
+      - billing
+
+networks:
+  hotelena:
+    driver: bridge
