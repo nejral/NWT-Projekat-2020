@@ -3,10 +3,13 @@
 Hotelena dockerized app with a few corrections
 
 ## Running the thing
-1. Build each module using `mvn clean package`
+1. Build each module using `mvn package` ( for Reservation and Authentication Service use "mvn package -DSkipTests)
 2. Navigate to `.docker` and run `docker-compose up -d --build`
 3. Wait a few hours till it builds :P
 4. Done!
+5. App is running on localhost:8080, swagger is on 'localhost:8080/swagger-ui.html'
+
+ Frontend : https://github.com/aminaanaan/hotel-ena-frontend
 
 Naziv teme: Hotel ENA
 
