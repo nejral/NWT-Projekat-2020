@@ -2,7 +2,81 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37db0354-057d-4bce-9c9b-bd5f203070f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.docker/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.docker/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/configuration/DodavanjeKorisnika.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/db/EventRequestRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/db/entity/EventRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/Korisnik.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/KorisnikLoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/KorisnikRacun.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/KorisnikRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/Racun.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/RacunRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/Rezervacija.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/Sala.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/SalaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/Soba.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/dto/SobaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/models/KorisnikEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/models/RacunEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/repository/KorisnikRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/rest/KorisnikController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/rest/RacunClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/rest/RezervacijaClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/java/com/example/hotel/service/KorisnikService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/src/main/resources/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/src/main/resources/bootstrap.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/EventsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/EventsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/configuration/DodavanjeKorisnika.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/db/EventRequestRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/db/entity/EventRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/Korisnik.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/KorisnikLoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/KorisnikRacun.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/KorisnikRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/LoginRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/Racun.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/RacunRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/Rezervacija.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/Sala.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/SalaEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/SignUpRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/SignUpRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/Soba.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/dto/SobaEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/models/KorisnikEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/models/RacunEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/repository/KorisnikRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/rest/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/rest/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/rest/KorisnikController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/rest/RacunClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/rest/RezervacijaClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/CustomUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/CustomUserDetailsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/UserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/UserPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/oauth2/CustomOAuth2UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/security/oauth2/CustomOAuth2UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/service/KorisnikService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/validation/RequestValidation.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/classes/com/example/hotel/validation/RequestValidation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/hotel-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/hotel-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/hotel-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/hotel-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthenticationService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/AuthenticationService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/src/main/resources/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/src/main/resources/bootstrap.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/bootstrap.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/configuration/DodavanjeKorisnika.class" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/configuration/DodavanjeKorisnika.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/configuration/ReceiveMessageHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/configuration/ReceiveMessageHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/dto/RacunReservationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/dto/RacunReservationRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/rest/RacunController.class" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/rest/RacunController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/service/RacunService.class" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/classes/com/example/hotel/ena/service/RacunService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/demo-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/demo-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/demo-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/demo-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/surefire-reports/TEST-com.example.hotel.ena.RacunControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/surefire-reports/TEST-com.example.hotel.ena.RacunControllerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BillingService/target/surefire-reports/com.example.hotel.ena.RacunControllerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BillingService/target/surefire-reports/com.example.hotel.ena.RacunControllerTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationService/src/main/resources/bootstrap.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ReservationService/src/main/resources/bootstrap.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReservationService/src/test/java/com/example/hotel/ena/RezervacijaControllerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +87,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1cmXXTQEakE3xBiYnCa9BR03QfP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -35,10 +110,17 @@
       <option name="presentableId" value="Default" />
       <updated>1591134782057</updated>
       <workItem from="1591134783928" duration="880000" />
+      <workItem from="1591216493452" duration="2628000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1591216493650">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1591216493650" />
   </component>
 </project>
